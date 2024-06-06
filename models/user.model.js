@@ -11,14 +11,18 @@ const userSchema = mongoose.Schema({
     enrollmentNumber: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index:true
     },
     email: {
         type: String,
+        unique: [true, "Email already exists"],
+        lowercase: true,
         trim: true
     },
     phoneNumber: {
         type: String,
+        unique: [true, "Phone Number already exists"],
         trim: true
     },
     password: {
