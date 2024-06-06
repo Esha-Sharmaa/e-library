@@ -10,9 +10,9 @@ const userSchema = mongoose.Schema({
     },
     enrollmentNumber: {
         type: String,
-        required: true,
-        unique: true,
-        index:true
+        required: [true, "Enroll Number is required"],
+        unique: [true, "Enroll Number already exists"],
+        index: true
     },
     email: {
         type: String,
@@ -51,9 +51,9 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 userSchema.methods.generateAccessToken = function () {
     return jwt.sign(
         {
-        _id: this._id,
-        enrollmentNumber: this.enrollmentNumber,
-        fullName: this.fullName
+            _id: this._id,
+            enrollmentNumber: this.enrollmentNumber,
+            fullName: this.fullName
         },
         process.env.ACCESS_TOKEN_SECRET_KEY,
         { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
