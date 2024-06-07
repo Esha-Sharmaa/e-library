@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bycrpt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const userSchema = mongoose.Schema({
@@ -29,6 +29,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Password is required"]
     },
+    role: {
+        type: String,
+        enum: ["Student", "Admin"],
+        required: [true, "Role is required"]
+    },
     refreshToken: {
         type: String
     },
@@ -38,14 +43,14 @@ const userSchema = mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
-    if (!this.isModified("password")) return;
+    if (!this.isModified("password")) return next();
 
-    this.password = await bycrpt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
     next();
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bycrpt.compare(password, this.password);
+    return await bcrypt.compare(password, this.password);
 }
 
 userSchema.methods.generateAccessToken = function () {

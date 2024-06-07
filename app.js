@@ -11,10 +11,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+// importing routes
+const userRouter = require("./routes/user.routes.js");
 // routes
 app.get('/', (req, res) => {
     res.render('index');
-})
+});
+app.use("/api/v1/users", userRouter);
 
 
 
