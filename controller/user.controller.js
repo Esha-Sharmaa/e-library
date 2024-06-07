@@ -124,7 +124,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     const avatarLocalPath = req?.file?.path;
     if (!avatarLocalPath) throw new ApiError(400, "Avatar image is required");
 
-    const avatarUrl = await uploadOnCloudinary(avatarLocalPath);
+    const avatarUrl = await uploadOnCloudinary(avatarLocalPath, { resource_type: "auto" });
     if (!avatarUrl) throw new ApiError(500, "Error while uploading image");
     const user = await User.findByIdAndUpdate(req?.user?._id, {
         $set: {
