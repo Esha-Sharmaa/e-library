@@ -1,0 +1,53 @@
+<%- include("header.ejs") %>
+    <%- include("sidebar.ejs") %>
+        <main id="main" class="main">
+
+            <div class="pagetitle">
+                <h1>Blog List</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin-dashboard">Home</a></li>
+                        <li class="breadcrumb-item">Manage Blogs</li>
+                        <li class="breadcrumb-item active">Blogs List</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
+
+            <section class="section">
+                <div class="container">
+                    <div class="row">
+                        <% blogList.forEach(blog=> { %>
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <img src="<%= blog.writerInfo.avatar %>" alt="Avatar"
+                                                    class="rounded-circle" width="40" height="40">
+                                                <span class="ms-2 fw-bold">
+                                                    <%= blog.writerInfo.fullName %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title fs-5 fw-bold mb-3">
+                                            <%= blog.title %>
+                                        </h5>
+                                        <div class="card-text mb-3">
+                                            <%- blog.content.substring(0, 300) %>...
+                                        </div>
+                                        <div class="">
+                                            <a class="badge bg-primary"><i class="bi bi-eye me-1"></i> View</a>
+                                            <a href="/api/v1/blogs/delete-blog?id=<%= blog._id %>"
+                                                class="badge bg-danger"><i class="bi bi-trash me-1"></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% }); %>
+                    </div>
+                </div>
+            </section>
+        </main><!-- End #main -->
+        <%- include('footer.ejs') %>
