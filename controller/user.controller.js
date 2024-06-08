@@ -29,14 +29,17 @@ const generateAccessAndRefreshToken = async (id) => {
 const registerUser = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.error(errors);
-        throw new ApiError(422, "Validation Errors", errors);
+        req.flash('error', 'Validation Errors');
+        return res.status(422).redirect('/register');
     }
 
     const { enrollmentNumber, fullName, password, email, phoneNumber, role } = matchedData(req);
     const existedUser = await User.findOne({ $or: { enrollmentNumber, email, phoneNumber } });
 
-    if (existedUser) throw new ApiError(409, "Enroll, email or phoneNumber already existed");
+    if (existedUser) {
+        req.flash('error', 'User already exists');
+        return res.status(402).redirect('/register');
+    }
 
     const avatarLocalPath = req?.file?.path;
     console.log(avatarLocalPath);
@@ -55,41 +58,65 @@ const registerUser = asyncHandler(async (req, res) => {
     const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
     );
-    if (!createdUser) throw new ApiError(500, "Internal Server Error while registering User");
-    return res.status(201).json(new ApiResponse(201, createdUser, "User Registered Successfully"));
+    if (!createdUser) {
+        req.flash('error', 'Error creating user. Try Again');
+        return res.status(500).redirect('/register');
+    }
+    req.flash('success', 'User registered in successfully');
+    res.status(201).redirect('/dashboard');
 });
 
 const loginUser = asyncHandler(async (req, res) => {
     const { enrollmentNumber, password } = req.body;
-    console.log(enrollmentNumber, password);
-    if (!enrollmentNumber) throw new ApiError(400, "Enrollment Number is required");
-    if (!password) throw new ApiError(400, "Password is required");
+
+    if (!enrollmentNumber) {
+        req.flash('error', 'Enrollment Number is required');
+        return res.status(400).redirect('/login');
+    }
+
+    if (!password) {
+        req.flash('error', 'Password is required');
+        return res.status(400).redirect('/login');
+    }
 
     const foundUser = await User.findOne({ enrollmentNumber });
-    if (!foundUser) throw new ApiError(404, "User not found");
+    if (!foundUser) {
+        req.flash('error', 'User not found');
+        return res.status(404).redirect('/login');
+    }
 
-    const isPasswordMatched = foundUser.isPasswordCorrect(password);
-    if (!isPasswordMatched) throw new ApiError(401, "Bad Credentials");
+    const isPasswordMatched = await foundUser.isPasswordCorrect(password);
+    if (!isPasswordMatched) {
+        req.flash('error', 'Invalid Credentials');
+        return res.status(400).redirect('/login');
+    }
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken(foundUser._id);
     const loggedInUser = await User.findById(foundUser._id).select("-password -refreshToken");
+    res.cookie('accessToken', accessToken, options);
+    res.cookie('refreshToken', refreshToken, options);
 
-    return res
-        .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(new ApiResponse(200, loggedInUser, "User Logged In successfully"));
+    req.flash('success', 'User logged in successfully');
+    res.status(200).redirect('/dashboard');
 });
 const changeUserPassword = asyncHandler(async (req, res) => {
     const { newPassword, oldPassword } = req.body;
-    if (!newPassword) throw new ApiError(400, "New Password is Required");
-    if (!oldPassword) throw new ApiError(400, "Old Password is required");
+    if (!newPassword || !oldPassword) {
+        req.flash('error', 'Passwords are required');
+        return res.status(400).redirect('/changePassword');
+    }
 
     const foundUser = await User.findById(req?.user?._id);
-    if (!foundUser) throw new ApiError(404, "User not found");
+    if (!foundUser) {
+        req.flash('error', 'User not found');
+        return res.status(404).redirect('/login');
+    }
 
     const isPasswordMatched = foundUser.isPasswordCorrect(oldPassword);
-    if (!isPasswordMatched) throw new ApiError(400, "Bad Request, Incorrect Password");
+    if (!isPasswordMatched) {
+        req.flash('error', 'Invalid Credentials');
+        return res.status(400).redirect('/login');
+    }
     const updatedUser = await User.findByIdAndUpdate(req?.user?._id, {
         $set: {
             password: newPassword
@@ -98,34 +125,49 @@ const changeUserPassword = asyncHandler(async (req, res) => {
         new: true
     }).select("-password -refreshToken");
 
-    return res.status(200).json(new ApiResponse(200, updatedUser, "Password Changed Successfully"));
+    req.flash('success', 'Password Changed successfully');
+    res.status(200).redirect('/dashboard');
 });
 const refreshAccessToken = asyncHandler(async (req, res) => {
     const incomingToken = req?.cookies?.refreshToken || req?.body?.refreshToken;
-    if (!incomingToken) throw new ApiError(401, "Unauthorized Access");
+    if (!incomingToken) {
+        req.flash('error', 'Unauthorized access');
+        return res.status(403).redirect('/login');
+    }
 
     const decodedTokenInfo = verify(incomingToken, process.env.REFRESH_TOKEN_SECRET_KEY);
-    if (!decodedTokenInfo) throw new ApiError(401, "Invalid Refresh Token");
+    if (!decodedTokenInfo) {
+        req.flash('error', 'Invalid Refresh Token');
+        return res.status(401).redirect('/login');
+    }
 
     const user = await User.findById(decodedTokenInfo?._id);
-    if (!user) throw new ApiError(401, "Invalid Refresh Token");
+    if (!user) {
+        req.flash('error', 'Invalid Refresh Token');
+        return res.status(401).redirect('/login');
+    }
 
     if (incomingToken !== user.refreshToken) throw new ApiError(401, "Refresh Token is expired or used");
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken(decodedTokenInfo?._id);
 
-    return res
-        .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(new ApiResponse(200, { accessToken, refreshToken }, "Access Token re-generated successfully"));
+    res.cookie('accessToken', accessToken, options);
+    res.cookie('refreshToken', refreshToken, options);
 
+    req.flash('success', 'Access Token generated successfully');
+    res.status(200).redirect('/dashboard');
 });
 const updateUserAvatar = asyncHandler(async (req, res) => {
     const avatarLocalPath = req?.file?.path;
-    if (!avatarLocalPath) throw new ApiError(400, "Avatar image is required");
+    if (!avatarLocalPath) {
+        req.flash('error', 'Avatar image is required');
+        return res.status(400).redirect('/login');
+    }
 
     const avatarUrl = await uploadOnCloudinary(avatarLocalPath, { resource_type: "auto" });
-    if (!avatarUrl) throw new ApiError(500, "Error while uploading image");
+    if (!avatarUrl) {
+        req.flash('error', 'Error while uploading. Try Again later');
+        return res.status(500).redirect('/login');
+    }
     const user = await User.findByIdAndUpdate(req?.user?._id, {
         $set: {
             avatar: avatarUrl
@@ -134,33 +176,43 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
         new: true
     }).select("-password -refreshToken");
 
-    return res.status(200).json(new ApiResponse(200, user, "Avatar update Successfully"));
+    req.flash('success', 'Avatar updated successfully');
+    res.status(200).redirect('/dashboard');
 
 });
 const updateUserDetails = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) throw new ApiError(422, "Validation Errors");
+    if (!errors.isEmpty()) {
+        req.flash('error', 'Validation errors');
+        return res.status(400).redirect('/login');
+    }
 
-    const { fullName, email, phoneNumber } = matchedData(req);
+    const { fullName, email, phoneNumber, course, gender, DOB } = matchedData(req);
 
     // Dynamically build the update object
     let updateFields = {};
     if (fullName) updateFields.fullName = fullName;
     if (email) updateFields.email = email;
     if (phoneNumber) updateFields.phoneNumber = phoneNumber;
+    if (course) updateFields.course = course;
+    if (gender) updateFields.gender = gender;
+    if (DOB) updateFields.DOB = DOB;
 
 
     const updatedUser = await User.findByIdAndUpdate(req?.user?._id, {
         $set: updateFields
     }).select("-password -refreshToken");
-    if (!updatedUser) throw new ApiError(500, "Error while updating the user");
-    return res.status(200).json(new ApiResponse(200, updatedUser, "User Details updated successfully"));
+    if (!updatedUser) {
+        req.flash('error', 'Error while updating the user');
+        return res.status(500).redirect('/login');
+    }
+
+    req.flash('success', 'User data updated successfully');
+    res.status(200).redirect('/dashboard');
 
 });
 const getUserInfo = asyncHandler(async (req, res) => {
-    return res
-        .status(200)
-        .json(new ApiResponse(200, req.user, "User data fetched successfully"));
+    return res.render('userProfile', req.user);
 });
 
 module.exports = {

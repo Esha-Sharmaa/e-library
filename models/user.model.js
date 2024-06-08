@@ -34,6 +34,20 @@ const userSchema = mongoose.Schema({
         enum: ["Student", "Admin"],
         required: [true, "Role is required"]
     },
+    course: {
+        type: String,
+        enum: ["BCA", "MCA", "MBA(E.com)","Faculty"],
+        default: "BCA"
+    },
+    gender: {
+        type: String,
+        enum: ["Male", "Female", "Other"],
+        default: "Male"
+    },
+    DOB: {
+        type: Date,
+        default: new Date('2000-01-01')
+    },
     refreshToken: {
         type: String
     },
