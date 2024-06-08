@@ -199,8 +199,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 
     const { fullName, email, phoneNumber, course, gender, DOB } = matchedData(req);
     const existedUser = await User.findOne({ $or: { email, phoneNumber } });
-    console.log(existedUser);
-    if (existedUser) {
+    if (existedUser &&  existedUser._id !== req.user._id) {
         req.flash('error', 'User already exists');
         if (req.user.role === 'Admin')
             return res.status(402).redirect('/admin-profile');

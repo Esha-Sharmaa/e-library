@@ -11,7 +11,8 @@ const handleLoginRender = (req, res) => {
 }
 const handleAdminDashboardRender = asyncHandler(async (req, res) => {
     const userList = await User.find();
-    res.render('admin/dashboard', { loggedUser: req.user, userList });
+    const blogList = await Blog.find();
+    res.render('admin/dashboard', { loggedUser: req.user, userList, blogList });
 })
 const handleAdminProfileRender = (req, res) => {
     res.render("admin/profile", { loggedUser: req.user });
