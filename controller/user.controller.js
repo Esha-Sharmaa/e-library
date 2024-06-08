@@ -1,7 +1,6 @@
 const User = require('../models/user.model.js');
 const asyncHandler = require('../utils/asyncHandler.js');
 const ApiError = require('../utils/ApiError.js');
-const ApiResponse = require('../utils/ApiResponse.js');
 const { validationResult, matchedData } = require('express-validator');
 const uploadOnCloudinary = require('../utils/cloudinary.js');
 const { verify } = require('jsonwebtoken');
@@ -246,13 +245,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     const { id } = req.query;
 
-    const user = await User.findById(id);
+    const user = await User.findOneAndDelete({ _id: id });;
     if (!user) {
         req.flash('error', 'User not found');
         return res.status(404).redirect('/admin-list');
     }
-
-    await user.remove();
     req.flash('success', 'User deleted successfully');
     return res.status(400).redirect('/admin-list');
 })

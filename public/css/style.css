@@ -15,6 +15,54 @@ i {
 	margin-right: 10px;
 }
 
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	width: 80%;
+	margin: 20px auto;
+}
+
+h1 {
+	text-align: center;
+	color: #333;
+}
+
+.blog-card {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin: 20px 0;
+	padding: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card h2 {
+	margin-top: 0;
+}
+
+.blog-content {
+	max-height: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.show-more {
+	display: block;
+	margin-top: 10px;
+	color: #0066cc;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.show-more:hover {
+	text-decoration: underline;
+}
+
 /*----------bootstrap-navbar-css------------*/
 .nav-wrapper {
 	padding-inline: 2rem;

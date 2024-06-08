@@ -34,10 +34,11 @@ app.use((req, res, next) => {
 const userRouter = require("./routes/user.routes.js");
 const bookRouter = require("./routes/book.routes.js");
 const pagesRouter = require("./routes/pages.routes.js");
-
+const blogRouter = require("./routes/blog.routes.js");
 // Routes
 app.use('/', pagesRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/books", bookRouter);
+app.use("/api/v1/blogs", blogRouter);
 
 module.exports = app;

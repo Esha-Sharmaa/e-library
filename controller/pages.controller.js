@@ -1,5 +1,8 @@
 const User = require('../models/user.model');
+const Blog = require("../models/blog.model.js");
 const asyncHandler = require('../utils/asyncHandler.js');
+
+
 const handleUserHomePage = (req, res) => {
     res.render('user/index');
 }
@@ -26,6 +29,37 @@ const handleStudentListRender = asyncHandler(async (req, res) => {
 const handleUploadBlogRender = (req, res) => {
     return res.render('admin/uploadBlog', { loggedUser: req.user });
 }
+const fetchAllBlogs = asyncHandler(async (req, res) => {
+    try {
+        const blogs = await Blog.aggregate([
+            {
+                $lookup: {
+                    from: 'users', // Collection name
+                    localField: 'writer',
+                    foreignField: '_id',
+                    as: 'writerInfo'
+                }
+            },
+            {
+                $unwind: '$writerInfo' // Unwind the writer info array
+            },
+            {
+                $project: {
+                    title: 1,
+                    content: 1,
+                    'writerInfo._id': 1,
+                    'writerInfo.avatar': 1,
+                    'writerInfo.fullName': 1
+                }
+            }
+        ]);
+        req.flash('success', 'Blogs fetched successfully');
+        return res.status(200).render("admin/blogList", { loggedUser: req.user, blogList: blogs });
+    } catch (error) {
+        req.flash('error', 'Error fetching blogs');
+        return res.status(500).redirect('/blog-list');
+    }
+});
 module.exports = {
     handleUserHomePage,
     handleLoginRender,
@@ -33,5 +67,6 @@ module.exports = {
     handleAdminProfileRender,
     handleAdminListRender,
     handleStudentListRender,
-    handleUploadBlogRender
+    handleUploadBlogRender,
+    fetchAllBlogs
 }
