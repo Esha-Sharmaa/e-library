@@ -11,6 +11,7 @@ app.set('view engine', 'ejs');
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser());
+// Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Session and flash middleware
@@ -32,16 +33,10 @@ app.use((req, res, next) => {
 // Importing routes
 const userRouter = require("./routes/user.routes.js");
 const bookRouter = require("./routes/book.routes.js");
+const pagesRouter = require("./routes/pages.routes.js");
 
 // Routes
-app.get('/', (req, res) => {
-    res.render('user/index');
-});
-
-app.get("/login", (req, res) => {
-    res.render('user/login');
-});
-
+app.use('/', pagesRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/books", bookRouter);
 

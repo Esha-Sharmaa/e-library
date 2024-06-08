@@ -1,8 +1,8 @@
 const { verify } = require("jsonwebtoken");
 const ApiError = require("../utils/ApiError");
 const User = require("../models/user.model");
-
-const verifyJWT = async (req, res, next) => {
+const asyncHandler = require('../utils/asyncHandler.js');
+const verifyJWT = asyncHandler(async (req, res, next) => {
     try {
         const accessToken = req?.cookies?.accessToken;
         if (!accessToken) throw new ApiError(401, "Unauthorized Access");
@@ -20,5 +20,5 @@ const verifyJWT = async (req, res, next) => {
         throw new ApiError(401, error.message || "Invalid Access Token");
     }
 
-}
+});
 module.exports = verifyJWT;

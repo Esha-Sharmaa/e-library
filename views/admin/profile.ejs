@@ -1,0 +1,294 @@
+<%- include("header.ejs") %>
+    <%- include("sidebar.ejs") %>
+        <main id="main" class="main">
+
+            <div class="pagetitle">
+                <h1>Profile</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item">Users</li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
+
+            <section class="section profile">
+                <div class="row">
+                    <div class="col-xl-4">
+
+                        <div class="card">
+                            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                                <img src="<%= loggedUser.avatar %>" alt="Profile" class="rounded-circle">
+                                <h2>
+                                    <%= loggedUser.fullName %>
+                                </h2>
+                                <h3>
+                                    <%= loggedUser.course %> | <%= loggedUser.role %>
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-8">
+
+                        <div class="card">
+                            <div class="card-body pt-3">
+                                <!-- Bordered Tabs -->
+                                <ul class="nav nav-tabs nav-tabs-bordered">
+
+
+                                    <li class="nav-item">
+                                        <button class="nav-link " data-bs-toggle="tab"
+                                            data-bs-target="#profile-overview">Overview</button>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <button class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#profile-edit">Edit
+                                            Profile</button>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab"
+                                            data-bs-target="#profile-change-password">Change Password</button>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content pt-2">
+
+                                    <div class="tab-pane fade  profile-overview" id="profile-overview">
+
+                                        <h5 class="card-title">Profile Details</h5>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <%= loggedUser.fullName %>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label ">Admin ID</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <%= loggedUser.enrollmentNumber %>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Role(Dept)</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <%= loggedUser.course %>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Role (Web)</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <%= loggedUser.role %>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Date of Birth</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <%= loggedUser.DOB %>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Gender</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <%= loggedUser.gender %>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Phone</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <% if (loggedUser.phoneNumber) { %>
+                                                    <%= loggedUser.phoneNumber %>
+                                                        <% } else { %>
+                                                            Not Available
+                                                            <% } %>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Email</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <% if (loggedUser.email) { %>
+                                                    <%= loggedUser.email %>
+                                                        <% } else { %>
+                                                            Not Available
+                                                            <% } %>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
+                                        <% if (errorMessages && errorMessages.length> 0) { %>
+                                            <span class="alert">
+                                                <% errorMessages.forEach(function(message) { %>
+                                                    <p>
+                                                        <%= message %>
+                                                    </p>
+                                                    <% }) %>
+                                            </span>
+                                            <% } %>
+                                                <!-- Profile Edit Form -->
+                                                <form enctype="multipart/form-data" method="POST"
+                                                    action="/api/v1/users/update-avatar">
+                                                    <div class="row mb-3">
+                                                        <label for="profileImage"
+                                                            class="col-md-4 col-lg-3 col-form-label">Profile
+                                                            Image</label>
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <img src="<%= loggedUser.avatar %>" alt="Profile">
+                                                            <div class="pt-2">
+                                                                <!-- Upload Input -->
+                                                                <label for="avatar" class="btn btn-primary btn-sm">
+                                                                    <i class="bi bi-upload"></i> Upload
+                                                                </label>
+                                                                <input type="file" id="avatar" name="avatar"
+                                                                    style="display: none;">
+
+                                                                <!-- Save Button -->
+                                                                <button class="btn btn-success btn-sm" type="submit"><i
+                                                                        class="bi bi-save"></i>
+                                                                    Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                                <form method="post" action="/api/v1/users/update-details">
+                                                    <!-- Other form fields -->
+                                                    <div class="row mb-3">
+                                                        <label for="fullName"
+                                                            class="col-md-4 col-lg-3 col-form-label">Full
+                                                            Name</label>
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <input name="fullName" type="text" class="form-control"
+                                                                id="fullName" value="<%= loggedUser.fullName %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="course"
+                                                            class="col-md-4 col-lg-3 col-form-label">Role(Dept)</label>
+                                                        <div class="col-md-8 col-lg-9">
+
+                                                            <select name="course" id="course" class="form-select">
+                                                                <!-- Ensure the value attribute matches the option text -->
+                                                                <option value="BCA" <% if (loggedUser.course==='BCA' ) {
+                                                                    %>
+                                                                    selected<% } %>>BCA</option>
+                                                                <option value="MCA" <% if (loggedUser.course==='MCA' ) {
+                                                                    %>
+                                                                    selected<% } %>>MCA</option>
+                                                                <option value="MBA(E.com)" <% if
+                                                                    (loggedUser.course==='MBA(E.com)' ) { %>selected<% }
+                                                                        %>
+                                                                        >MBA(E.com)</option>
+                                                                <option value="Faculty" <% if
+                                                                    (loggedUser.course==='Faculty' ) { %>selected<% } %>
+                                                                        >Faculty</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row mb-3">
+                                                        <label for="gender"
+                                                            class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <select name="gender" id="gender" class="form-select">
+                                                                <option value="Male" <% if (loggedUser.gender==='Male' )
+                                                                    { %>
+                                                                    selected<% } %>>Male</option>
+                                                                <option value="Female" <% if
+                                                                    (loggedUser.gender==='Female' ) { %>
+                                                                    selected<% } %>>Female</option>
+                                                                <option value="Other" <% if (loggedUser.gender==='Other'
+                                                                    ) { %>selected<% } %>
+                                                                        >Other</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <label for="Phone"
+                                                            class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <input name="phoneNumber" type="text" class="form-control"
+                                                                id="Phone" value="<%= loggedUser.phoneNumber %>">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <label for="Email"
+                                                            class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <input name="email" type="email" class="form-control" id=""
+                                                                value="<%= loggedUser.email %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="DOB" class="col-md-4 col-lg-3 col-form-label">Date
+                                                            of
+                                                            Birth</label>
+                                                        <div class="col-md-8 col-lg-9">
+                                                            <input name="DOB" type="date" class="form-control" id=""
+                                                                value="<%= loggedUser.DOB %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                    </div>
+                                                </form><!-- End Profile Edit Form -->
+
+                                    </div>
+
+                                    <div class="tab-pane fade pt-3" id="profile-change-password">
+                                        <!-- Change Password Form -->
+                                        <form method="post" action="/api/v1/users/change-password">
+
+                                            <div class="row mb-3">
+                                                <label for="oldPassword"
+                                                    class="col-md-4 col-lg-3 col-form-label">Current
+                                                    Password</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="oldPassword" type="password" class="form-control"
+                                                        id="oldPassword">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New
+                                                    Password</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="newPassword" type="password" class="form-control"
+                                                        id="newPassword">
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary">Change Password</button>
+                                            </div>
+                                        </form><!-- End Change Password Form -->
+
+                                    </div>
+
+                                </div><!-- End Bordered Tabs -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main><!-- End #main -->
+        <%- include('footer.ejs') %>

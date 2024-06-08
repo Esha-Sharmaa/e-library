@@ -14,6 +14,19 @@ const validateUpdateUser = [
     body('phoneNumber')
         .optional({ checkFalsy: true })  // Marks the field as optional, and treats empty strings as absent
         .isLength({ min: 10, max: 10 }).withMessage("Phone Number should be of length 10")
-        .isNumeric().withMessage("Phone number should only contains numbers"),
+        .isNumeric().withMessage("Phone number should only contain numbers"),
+
+    body('course')
+        .optional({ checkFalsy: true })
+        .isIn(["BCA", "MCA", "MBA(E.com)", "Faculty"]).withMessage("Invalid course"),
+
+    body('gender')
+        .optional({ checkFalsy: true })
+        .isIn(["Male", "Female", "Other"]).withMessage("Invalid gender"),
+
+    body('DOB')
+        .optional({ checkFalsy: true })  // Marks the field as optional, and treats empty strings as absent
+        .isString().withMessage("Date of Birth must be a string"),
 ];
+
 module.exports = validateUpdateUser;

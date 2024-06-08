@@ -5,13 +5,12 @@
             <div class="login-form">
                 <h2>Login</h2>
                 <% if (errorMessages && errorMessages.length> 0) { %>
-                    <span class="error-message">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <% errorMessages.forEach(function(message) { %>
-                            <p>
-                                <%= message %>
-                            </p>
-                            <% }) %>
-                    </span>
+                            <%= message %>
+                                
+                                <% }) %>
+                    </div>
                     <% } %>
                         <form method="post" action="/api/v1/users/login">
                             <div class="form-group">

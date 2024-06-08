@@ -26,11 +26,14 @@ const generateAccessAndRefreshToken = async (id) => {
         return null;
     }
 }
+const renderAdminDashboard = (req, res) => {
+    res.render('admin/dashboard');
+}
 const registerUser = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        req.flash('error', 'Validation Errors');
-        return res.status(422).redirect('/register');
+        req.flash('error', 'Invalid input data');
+        return res.status(422).redirect('/admin-list');
     }
 
     const { enrollmentNumber, fullName, password, email, phoneNumber, role } = matchedData(req);
@@ -38,7 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if (existedUser) {
         req.flash('error', 'User already exists');
-        return res.status(402).redirect('/register');
+        return res.status(402).redirect('/admin-list');
     }
 
     const avatarLocalPath = req?.file?.path;
@@ -49,21 +52,24 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         enrollmentNumber,
         fullName,
+        password,
+        role,
         email: email || null,
         phoneNumber: phoneNumber || null,
-        avatar: avatarUrl || "",
-        password,
-        role
+        avatar: avatarUrl | " "
     });
     const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
     );
     if (!createdUser) {
         req.flash('error', 'Error creating user. Try Again');
-        return res.status(500).redirect('/register');
+        return res.status(500).redirect('/admin-list');
     }
     req.flash('success', 'User registered in successfully');
-    res.status(201).redirect('/dashboard');
+    if (createdUser.role === 'Admin')
+        return res.status(201).redirect('/admin-list');
+    else
+        return res.status(201).redirect('/student-list');
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -97,36 +103,40 @@ const loginUser = asyncHandler(async (req, res) => {
     res.cookie('refreshToken', refreshToken, options);
 
     req.flash('success', 'User logged in successfully');
-    res.status(200).redirect('/dashboard');
+    if (loggedInUser.role === 'Admin') return res.status(200).redirect('/admin-dashboard');
+    return res.status(200).redirect("/");
+
+});
+const logoutUser = asyncHandler(async (req, res) => {
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+    req.flash('success', 'User logged out successfully');
+    res.status(200).redirect('/login');
 });
 const changeUserPassword = asyncHandler(async (req, res) => {
     const { newPassword, oldPassword } = req.body;
+    console.log(newPassword, oldPassword);
     if (!newPassword || !oldPassword) {
         req.flash('error', 'Passwords are required');
-        return res.status(400).redirect('/changePassword');
+        return res.status(400).redirect('/admin-profile');
     }
 
     const foundUser = await User.findById(req?.user?._id);
     if (!foundUser) {
         req.flash('error', 'User not found');
-        return res.status(404).redirect('/login');
+        return res.status(404).redirect('/admin-profile');
     }
 
-    const isPasswordMatched = foundUser.isPasswordCorrect(oldPassword);
+    const isPasswordMatched = await foundUser.isPasswordCorrect(oldPassword);
     if (!isPasswordMatched) {
         req.flash('error', 'Invalid Credentials');
-        return res.status(400).redirect('/login');
+        return res.status(400).redirect('/admin-profile');
     }
-    const updatedUser = await User.findByIdAndUpdate(req?.user?._id, {
-        $set: {
-            password: newPassword
-        }
-    }, {
-        new: true
-    }).select("-password -refreshToken");
-
+    const updatedUser = await User.findById(req?.user?._id).select("-password -refreshToken");
+    updatedUser.password = newPassword;
+    await updatedUser.save();
     req.flash('success', 'Password Changed successfully');
-    res.status(200).redirect('/dashboard');
+    res.status(200).redirect('/admin-profile');
 });
 const refreshAccessToken = asyncHandler(async (req, res) => {
     const incomingToken = req?.cookies?.refreshToken || req?.body?.refreshToken;
@@ -160,13 +170,13 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     const avatarLocalPath = req?.file?.path;
     if (!avatarLocalPath) {
         req.flash('error', 'Avatar image is required');
-        return res.status(400).redirect('/login');
+        return res.status(400).redirect('/admin-profile');
     }
 
     const avatarUrl = await uploadOnCloudinary(avatarLocalPath, { resource_type: "auto" });
     if (!avatarUrl) {
         req.flash('error', 'Error while uploading. Try Again later');
-        return res.status(500).redirect('/login');
+        return res.status(500).redirect('/admin-profile');
     }
     const user = await User.findByIdAndUpdate(req?.user?._id, {
         $set: {
@@ -177,19 +187,27 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     }).select("-password -refreshToken");
 
     req.flash('success', 'Avatar updated successfully');
-    res.status(200).redirect('/dashboard');
+    res.status(200).redirect('/admin-profile');
 
 });
 const updateUserDetails = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log(errors);
         req.flash('error', 'Validation errors');
-        return res.status(400).redirect('/login');
+        return res.status(400).redirect('/admin-profile');
     }
 
     const { fullName, email, phoneNumber, course, gender, DOB } = matchedData(req);
-
-    // Dynamically build the update object
+    const existedUser = await User.findOne({ $or: { email, phoneNumber } });
+    console.log(existedUser);
+    if (existedUser) {
+        req.flash('error', 'User already exists');
+        if (req.user.role === 'Admin')
+            return res.status(402).redirect('/admin-profile');
+        else
+            return res.status(402).redirect('/user-profile');
+    }
     let updateFields = {};
     if (fullName) updateFields.fullName = fullName;
     if (email) updateFields.email = email;
@@ -204,17 +222,40 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     }).select("-password -refreshToken");
     if (!updatedUser) {
         req.flash('error', 'Error while updating the user');
-        return res.status(500).redirect('/login');
+        if (req.user.role === 'Admin')
+            return res.status(500).redirect('/admin-profile');
+        else
+            return res.status(500).redirect('/user-profile');
     }
-
     req.flash('success', 'User data updated successfully');
-    res.status(200).redirect('/dashboard');
+    if (req.user.role === 'Admin')
+        return res.status(200).redirect('/admin-profile');
+    else
+        return res.status(200).redirect('/user-profile');
 
 });
 const getUserInfo = asyncHandler(async (req, res) => {
     return res.render('userProfile', req.user);
 });
+const deleteUser = asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        req.flash('error', 'Invalid User Id');
+        return res.status(400).redirect('/admin-list');
+    }
 
+    const { id } = req.query;
+
+    const user = await User.findById(id);
+    if (!user) {
+        req.flash('error', 'User not found');
+        return res.status(404).redirect('/admin-list');
+    }
+
+    await user.remove();
+    req.flash('success', 'User deleted successfully');
+    return res.status(400).redirect('/admin-list');
+})
 module.exports = {
     registerUser,
     loginUser,
@@ -222,5 +263,7 @@ module.exports = {
     changeUserPassword,
     refreshAccessToken,
     getUserInfo,
-    updateUserDetails
+    updateUserDetails,
+    renderAdminDashboard,
+    logoutUser, deleteUser
 }

@@ -16,13 +16,13 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        unique: [true, "Email already exists"],
+
         lowercase: true,
         trim: true
     },
     phoneNumber: {
         type: String,
-        unique: [true, "Phone Number already exists"],
+
         trim: true
     },
     password: {
@@ -36,7 +36,7 @@ const userSchema = mongoose.Schema({
     },
     course: {
         type: String,
-        enum: ["BCA", "MCA", "MBA(E.com)","Faculty"],
+        enum: ["BCA", "MCA", "MBA(E.com)", "Faculty"],
         default: "BCA"
     },
     gender: {
@@ -45,8 +45,8 @@ const userSchema = mongoose.Schema({
         default: "Male"
     },
     DOB: {
-        type: Date,
-        default: new Date('2000-01-01')
+        type: String,
+        default: "1999-09-12"
     },
     refreshToken: {
         type: String
