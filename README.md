@@ -53,7 +53,7 @@
    ```
 2. Navigate to the project directory:
    ```bash
-   cd user-management-backend
+   cd E_library
    ```
 3. Install dependencies:
    ```bash
