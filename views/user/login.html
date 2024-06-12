@@ -10,7 +10,24 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
     <style>
+      body {
+        background: linear-gradient(
+          235deg,
+          rgb(229, 214, 236),
+          #65b0d5,
+          rgb(229, 214, 236)
+        );
+        background-repeat: no-repeat;
+      }
+      .logo_img {
+        width: 60px;
+        border-radius: 50px;
+      }
       .container {
         border-radius: 20px;
         background: linear-gradient(
@@ -30,14 +47,14 @@
         margin-top: 70px;
         margin-bottom: 100px;
       }
-      body {
-        background: linear-gradient(
-          235deg,
-          rgb(229, 214, 236),
-          #65b0d5,
-          rgb(229, 214, 236)
-        );
-        
+      .btn {
+        border-radius: 5px;
+        border: 1.7px solid #6cb1f1;
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
+      .btn:hover {
+        background-color: #6cb1f1;
       }
 
       @media screen and (max-width: 600px) {
@@ -48,8 +65,19 @@
           margin-top: 20px;
           margin-bottom: 20px;
         }
+        .logo_img {
+          width: 50px;
+          margin-right: -25px;
+        }
+        .navbtn {
+          margin-left: -10px;
+          padding: 5px;
+        }
+        .margin {
+          margin-top: 0px;
+          margin-bottom: 20px;
+        }
       }
-      /* #200852 */
     </style>
   </head>
 
@@ -61,7 +89,7 @@
           <div class="container-fluid">
             <button
               style="background-color: white"
-              class="navbar-toggler my-1"
+              class="navbar-toggler my-1 navbtn"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarTogglerDemo03"
@@ -73,32 +101,43 @@
             </button>
             <a class="navbar-brand" href="#"
               ><img
-                src="../../public/images/jiwajij.png"
-                width="80"
-                height="80"
-                alt=""
+                src="../../public/images/jiwaji.png"
+                class="shadow-lg logo_img"
+                alt="jiwaji_logo"
             /></a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                   <a class="nav-link mx-2 fs-5" aria-current="page" href="#"
-                    >Home</a
+                    ><img
+                      src="../../public/images/home.png"
+                      width="20px"
+                      style="margin-top: -4px"
+                    />
+                    Home</a
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2 fs-5" href="#">Books</a>
+                  <a class="nav-link mx-2 fs-5" href="#"
+                    ><img
+                      src="../../public/images/book.png"
+                      width="20px"
+                      style="margin-top: -4px"
+                    />
+                    Books</a
+                  >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-2 fs-5">Blogs</a>
+                  <a class="nav-link mx-2 fs-5" href="#"
+                    ><img
+                      src="../../public/images/blog.png"
+                      width="25px"
+                      style="margin-top: -4px"
+                    />Blogs</a
+                  >
                 </li>
               </ul>
-              <button
-                class="btn"
-                style="background-color: #6cb1f1"
-                type="submit"
-              >
-                Sign-up
-              </button>
+              <button class="btn" type="submit">Sign-up</button>
             </div>
           </div>
         </nav>
@@ -133,9 +172,7 @@
                     class="form-control"
                   />
                   <span class="d-flex justify-content-center">
-                    <button class="btn mt-4" style="background-color: #6cb1f1">
-                      login
-                    </button></span
+                    <button class="btn mt-4">login</button></span
                   >
                   <p class="text-center mt-3">
                     don't have any account
