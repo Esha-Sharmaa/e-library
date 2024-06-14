@@ -61,6 +61,42 @@ const fetchAllBlogs = asyncHandler(async (req, res) => {
         return res.status(500).redirect('/blog-list');
     }
 });
+const fetchAllBlogsUser = asyncHandler(async (req, res) => {
+    try {
+        const blogs = await Blog.aggregate([
+            {
+                $lookup: {
+                    from: 'users', // Collection name
+                    localField: 'writer',
+                    foreignField: '_id',
+                    as: 'writerInfo'
+                }
+            },
+            {
+                $unwind: '$writerInfo' // Unwind the writer info array
+            },
+            {
+                $project: {
+                    title: 1,
+                    content: 1,
+                    createdAt: { $toDate: '$createdAt' },
+                    'writerInfo._id': 1,
+                    'writerInfo.avatar': 1,
+                    'writerInfo.fullName': 1
+                }
+            }
+        ]);
+        req.flash('success', 'Blogs fetched successfully');
+        return res.status(200).render("user/blogs", { loggedUser: req.user, blogs: blogs });
+    } catch (error) {
+        console.log("Error fetching blogs", error);
+        req.flash('error', 'Error fetching blogs');
+        return res.status(500).redirect('/');
+    }
+});
+const handleBooksRender = (req, res) => {
+    return res.render('user/books', { loggedUser: req.user });
+}
 module.exports = {
     handleUserHomePage,
     handleLoginRender,
@@ -69,5 +105,7 @@ module.exports = {
     handleAdminListRender,
     handleStudentListRender,
     handleUploadBlogRender,
-    fetchAllBlogs
+    fetchAllBlogs,
+    handleBooksRender,
+    fetchAllBlogsUser
 }

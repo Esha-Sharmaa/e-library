@@ -1,21 +1,191 @@
-<%- include('header.ejs') %>
+<%- include("header.ejs") %>
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="row custom-row">
-                <div class="col-md-6 hero-text" style="color: #34495e;">
-                    <h1 class="heading" style="color: #34495e;">Welcome to SOS Computer Application's E-Book Hub</h1>
-                    <h5 class="sub-heading" style="color: #95a5a6;">Discover, Download, and Excel</h5>
-                    <p class="sub-text" style="color: #34495e;">Explore our extensive collection of e-books and
-                        resources tailored to
-                        enhance your learning experience and academic journey.</p>
-                    <a href="login">GetStarted <i class="fa-solid fa-arrow-right"></i></a>
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-left">
+                    <h1 class="heading">Welcome to SOS Computer Application's E-Book Hub</h1>
+                    <h5 class="sub-heading">Discover, Download, and Excel</h5>
+                    <p class="sub-text">Explore our extensive collection of e-books and resources tailored to enhance
+                        your learning experience and academic journey.</p>
+                    <a href="/login" class="btn btn-primary">Get Started <i class="bi bi-arrow-right"></i></a>
                 </div>
+                <div class="col-md-6 text-center hero-image">
+                    <img src="images/hero1.png" alt="Hero Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <section class="image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#e0ecf4" fill-opacity="1"
+                    d="M0,32L40,26.7C80,21,160,11,240,42.7C320,75,400,149,480,165.3C560,181,640,139,720,133.3C800,128,880,160,960,186.7C1040,213,1120,235,1200,213.3C1280,192,1360,128,1400,96L1440,64L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+                </path>
+            </svg>
+        </section>
+    </section>
 
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Our Features</h2>
+            <div class="row align-items-center">
+
+                <div class="col-md-6 text-center">
+                    <img src="images/features1.jpg" alt=" Features Image" class="img-fluid">
+                </div>
                 <div class="col-md-6">
-                    <img src="./images/studentremoved.gif" class="hero-image" />
+                    <ul class="list-unstyled">
+                        <li>
+                            <h5 class="sub-heading">
+                                <i class="bi bi-collection"></i> Extensive Collection
+                            </h5>
+                            <p class="sub-text">Browse through a wide variety of e-books across different genres and
+                                subjects.</p>
+                        </li>
+                        <li>
+                            <h5 class="sub-heading"><i class="bi bi-cloud-download"></i> Easy Downloads</h5>
+                            <p class="sub-text">Download e-books quickly and easily for offline reading and study.</p>
+                        </li>
+                        <li>
+                            <h5 class="sub-heading"> <i class="bi bi-people-fill"></i> For Students</h5>
+                            <p class="sub-text">Resources specifically curated to support your academic success and
+                                growth.</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
-    <%- include('footer.ejs') %>
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                What is the SOS Computer Applications E-Library?
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#faqAccordion">
+                        <div class="card-body">
+                            The SOS Computer Applications E-Library is a digital repository offering a wide range of
+                            academic
+                            and recreational reading materials.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                How can I access the e-books?
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            You can access and download e-books by logging into your account and browsing through our
+                            collection.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Is there a fee for using the e-library?
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            No, the e-library is free for all registered students of SOS Computer Applications.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingFour">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Can I download e-books for offline reading?
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            Yes, you can easily download e-books for offline reading and study.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingFive">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                Who can use the e-library?
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            The e-library is primarily for students of SOS Computer Applications, but it is accessible
+                            to
+                            other members of the university as well.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingSix">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                How often is the e-library updated?
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            The e-library is regularly updated with new e-books and resources to ensure that users have
+                            access to the latest materials.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="contact-us">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Replace this div with your map embed code -->
+                    <div id="map" style="height: 400px;"></div>
+                    <!-- End of map embed code -->
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-info">
+                        <h4>Contact Information</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> Your Address</p>
+                        <p><i class="fas fa-envelope"></i> email@example.com</p>
+                        <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<%- include("footer.ejs") %>
