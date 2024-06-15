@@ -1,9 +1,10 @@
-const ApiError = require("../utils/ApiError");
-
-
 const isAdmin = (req, res, next) => {
-    if (req.user && req.user.role === 'Admin') next();
-    else throw new ApiError(403, "Only Admins can add a book");
+    if (req.user && req.user.role === 'Admin') {
+        next();
+    }
+    else {
+        return res.render('user/403', { req });
+    }
 }
 
 module.exports = isAdmin;
