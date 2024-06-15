@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const Blog = require("../models/blog.model.js");
+const Book = require("../models/book.model.js");
 const asyncHandler = require('../utils/asyncHandler.js');
 
 
@@ -28,18 +29,51 @@ const handleStudentListRender = asyncHandler(async (req, res) => {
     res.render("admin/studentList", { loggedUser: req.user, studentList });
 });
 const handleBookListRender = asyncHandler(async (req, res) => {
-    res.render("admin/bookList", { loggedUser: req.user });
+    try {
+        const currentPage = parseInt(req.query.page) || 1;
+        const pageSize = 6;
+        const skip = (currentPage - 1) * pageSize;
+        // Get the total count of books
+        const totalBooks = await Book.countDocuments();
+
+        // Calculate the total number of pages
+        const totalPages = Math.ceil(totalBooks / pageSize);
+        const bookList = await Book.aggregate([
+            {
+                $project: {
+                    title: 1,
+                    author: 1,
+                    coverImage: 1,
+                    bookUrl: 1,
+                    course: 1
+                }
+            }, {
+                $skip: skip
+            }, {
+                $limit: pageSize
+            }
+        ]);
+        if (!bookList) return res.render('user/500', { req });
+        if (req?.user?.role === 'Admin') return res.render('admin/bookList', { loggedUser: req.user, bookList, currentPage, totalPages });
+        else return res.render('user/books', { loggedUser: req.user, bookList });
+
+    } catch (error) {
+        console.log("Error fetching books list", error.message);
+        return res.render('user/500', { req });
+    }
 });
 
-const handleUploadBlogRender = (req, res) => {
-    return res.render('admin/uploadBlog', { loggedUser: req.user });
-}
-
-const fetchAllBlogs = asyncHandler(async (req, res) => {
+const handleBlogListRender = asyncHandler(async (req, res) => {
     try {
         const currentPage = parseInt(req.query.page) || 1;
         const pageSize = 4;
         const skip = (currentPage - 1) * pageSize;
+        // Get the total count of blogs
+        const totalBlogs = await Blog.countDocuments();
+
+        // Calculate the total number of pages
+        const totalPages = Math.ceil(totalBlogs / pageSize);
+
         const blogList = await Blog.aggregate([
             {
                 $lookup: {
@@ -69,7 +103,7 @@ const fetchAllBlogs = asyncHandler(async (req, res) => {
             }
         ]);
         req.flash('success', "Blogs fetched successfully");
-        if (req?.user?.role === 'Admin') return res.render('admin/blogList', { loggedUser: req.user, blogList });
+        if (req?.user?.role === 'Admin') return res.render('admin/blogList', { loggedUser: req.user, blogList, currentPage, totalPages });
         else return res.render('user/blogs', { loggedUser: req.user, blogList });
 
     } catch (error) {
@@ -78,8 +112,8 @@ const fetchAllBlogs = asyncHandler(async (req, res) => {
         return res.status(500).redirect('/');
     }
 });
-const handleBooksRender = (req, res) => {
-    return res.render('user/books', { loggedUser: req.user });
+const handleUploadBlogRender = (req, res) => {
+    return res.render('admin/uploadBlog', { loggedUser: req.user });
 }
 
 module.exports = {
@@ -90,7 +124,6 @@ module.exports = {
     handleAdminListRender,
     handleStudentListRender,
     handleUploadBlogRender,
-    fetchAllBlogs,
-    handleBooksRender,
+    handleBlogListRender,
     handleBookListRender
 }

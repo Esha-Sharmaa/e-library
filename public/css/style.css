@@ -392,3 +392,8 @@ textarea.form-control {
 .back-btn {
     margin-top: 2rem;
 }
+
+/* pagination  */
+.page {
+    border-top: 1px soid red;
+}
