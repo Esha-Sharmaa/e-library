@@ -4,31 +4,36 @@ const { validationResult, matchedData } = require('express-validator');
 
 
 const addBlog = asyncHandler(async (req, res) => {
-    const { blogTitle, blogContent } = req.body;
-    if (!blogTitle || !blogContent) {
-        req.flash("errors", "Blog Title and content both are required");
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        req.flash("error", errors.array().map(err => err.msg).join(' '));
         return res.status(400).redirect('/upload-blog');
     }
+
+    const { blogTitle, blogContent } = matchedData(req, { locations: ['body'] });
     const userId = req.user._id;
 
-    const createdBlog = await Blog.create({
-        title: blogTitle,
-        content: blogContent,
-        writer: userId
-    });
-    if (!createdBlog) {
-        req.flash("errors", "Error while uploading your blog. Try again later");
+    try {
+        const createdBlog = await Blog.create({
+            title: blogTitle,
+            content: blogContent,
+            writer: userId
+        });
+
+        req.flash("success", "Blog successfully created");
+        return res.status(201).redirect("/upload-blog");
+    } catch (error) {
+        req.flash("error", "Error while uploading your blog. Try again later");
         return res.status(500).redirect('/upload-blog');
     }
-    req.flash("success", "Blog successfully created");
-    res.status(200).redirect("/upload-blog");
 });
 const removeBlog = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        req.flash("error", "Blog id is required");
+        req.flash("error", errors.array().map(err => err.msg).join(' '));
         return res.status(400).redirect('/blog-list');
     }
+
     const { id } = req.query;
     const blog = await Blog.findOneAndDelete({ _id: id });
 
@@ -38,7 +43,7 @@ const removeBlog = asyncHandler(async (req, res) => {
     }
 
     req.flash('success', 'Blog deleted successfully');
-    return res.status(400).redirect('/blog-list');
+    return res.status(200).redirect('/blog-list');
 });
 
 module.exports = {

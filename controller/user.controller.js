@@ -22,7 +22,7 @@ const generateAccessAndRefreshToken = async (id) => {
     } catch (error) {
         console.log("Error while generating tokens", error);
         throw new ApiError(500, "Internal Server Error");
-        return null;
+        
     }
 }
 const renderAdminDashboard = (req, res) => {

@@ -4,7 +4,7 @@ const asyncHandler = require('../utils/asyncHandler.js');
 
 
 const handleUserHomePage = (req, res) => {
-    res.render('user/index');
+    res.render('user/index', { req });
 }
 const handleLoginRender = (req, res) => {
     res.render('user/login');
@@ -27,40 +27,61 @@ const handleStudentListRender = asyncHandler(async (req, res) => {
     const studentList = userList.filter(user => user.role === 'Student');
     res.render("admin/studentList", { loggedUser: req.user, studentList });
 });
+const handleBookListRender = asyncHandler(async (req, res) => {
+    res.render("admin/bookList", { loggedUser: req.user });
+});
+
 const handleUploadBlogRender = (req, res) => {
     return res.render('admin/uploadBlog', { loggedUser: req.user });
 }
+
 const fetchAllBlogs = asyncHandler(async (req, res) => {
     try {
-        const blogs = await Blog.aggregate([
+        const currentPage = parseInt(req.query.page) || 1;
+        const pageSize = 4;
+        const skip = (currentPage - 1) * pageSize;
+        const blogList = await Blog.aggregate([
             {
                 $lookup: {
-                    from: 'users', // Collection name
-                    localField: 'writer',
-                    foreignField: '_id',
-                    as: 'writerInfo'
+                    from: "users",
+                    localField: "writer",
+                    foreignField: "_id",
+                    as: "writerInfo"
                 }
             },
             {
-                $unwind: '$writerInfo' // Unwind the writer info array
+                $unwind: "$writerInfo"
             },
             {
                 $project: {
                     title: 1,
                     content: 1,
-                    'writerInfo._id': 1,
-                    'writerInfo.avatar': 1,
-                    'writerInfo.fullName': 1
+                    createdAt: 1,
+                    "writerInfo.fullName": 1,
+                    "writerInfo.avatar": 1
                 }
+            },
+            {
+                $skip: skip
+            },
+            {
+                $limit: pageSize
             }
         ]);
-        req.flash('success', 'Blogs fetched successfully');
-        return res.status(200).render("admin/blogList", { loggedUser: req.user, blogList: blogs });
+        req.flash('success', "Blogs fetched successfully");
+        if (req?.user?.role === 'Admin') return res.render('admin/blogList', { loggedUser: req.user, blogList });
+        else return res.render('user/blogs', { loggedUser: req.user, blogList });
+
     } catch (error) {
+        console.log("Error fetching blogs", error);
         req.flash('error', 'Error fetching blogs');
-        return res.status(500).redirect('/blog-list');
+        return res.status(500).redirect('/');
     }
 });
+const handleBooksRender = (req, res) => {
+    return res.render('user/books', { loggedUser: req.user });
+}
+
 module.exports = {
     handleUserHomePage,
     handleLoginRender,
@@ -69,5 +90,7 @@ module.exports = {
     handleAdminListRender,
     handleStudentListRender,
     handleUploadBlogRender,
-    fetchAllBlogs
+    fetchAllBlogs,
+    handleBooksRender,
+    handleBookListRender
 }

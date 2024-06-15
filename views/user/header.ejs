@@ -1,46 +1,60 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS Computer Science And Applications E-Library</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>SOS Computer Application's E-Book Hub</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="images/favicon.ico" rel=" icon">
+    <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <!-- Navbar -->
-    <div class="nav-wrapper">
-        <nav class="navbar navbar-expand-custom navbar-mainbg">
-            <a class="navbar-brand navbar-logo" href="#">
-                Jiwaji E-hub
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-home ">
+        <a class="navbar-brand navbar-brand-home" href="/">
+            <img src="images/jiwajij.png" alt="Logo" class="logo">
+            Jiwaji E-hub
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav navbar-nav-home mx-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/"><i class="bi bi-house-door"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/books"><i class="bi bi-book"></i> Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blogs"><i class="bi bi-journal-text"></i> Blogs</a>
+                </li>
+            </ul>
+<div class="form-inline ml-auto">
+    <% if (req.cookies.accessToken && req.cookies.refreshToken) { %>
+        <a href="/profile" class="btn btn-outline-primary my-2 my-sm-0">
+            <i class="bi bi-person"></i> Profile
+        </a>
+        <% } else { %>
+            <a href="/login" class="btn btn-outline-primary my-2 my-sm-0">
+                <i class="bi bi-box-arrow-in-right"></i> Sign In
             </a>
-            <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars text-white"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <div class="hori-selector">
-                        <div class="left"></div>
-                        <div class="right"></div>
-                    </div>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Books</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Sign In</a>
-                    </li>
-
-                </ul>
-            </div>
-        </nav>
-    </div>
+            <% } %>
+</div>
+        </div>
+    </nav>
