@@ -3,7 +3,7 @@ const upload = require("../middlewares/multer.middleware.js");
 const validateUploadBookDetails = require('../validators/validateUploadBook.js');
 const verifyJWT = require("../middlewares/auth.middleware.js");
 const isAdmin = require('../middlewares/isAdmin.middleware.js');
-const { addBook } = require("../controller/book.controller.js");
+const { addBook, deleteBook } = require("../controller/book.controller.js");
 const router = Router();
 
 router.route("/upload-book").post(
@@ -21,5 +21,5 @@ router.route("/upload-book").post(
     ]),
     validateUploadBookDetails,
     addBook);
-
+router.route("/delete-book").post(deleteBook);
 module.exports = router;

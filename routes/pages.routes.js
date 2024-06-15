@@ -7,8 +7,7 @@ const {
     handleAdminListRender,
     handleStudentListRender,
     handleUploadBlogRender,
-    fetchAllBlogs,
-    handleBooksRender,
+    handleBlogListRender,
     handleBookListRender
 } = require("../controller/pages.controller.js");
 
@@ -17,15 +16,21 @@ const isAdmin = require("../middlewares/isAdmin.middleware.js");
 
 const router = Router();
 
+// user page routes
 router.route('/').get(handleUserHomePage);
 router.route('/login').get(handleLoginRender);
-router.route('/books').get(verifyJWT, handleBooksRender);
+router.route('/books').get(verifyJWT, handleBookListRender);
+router.route('/blogs').get(verifyJWT, handleBlogListRender);
+
+// admin page routes
 router.route('/admin-dashboard').get(verifyJWT, isAdmin, handleAdminDashboardRender);
 router.route('/admin-profile').get(verifyJWT, isAdmin, handleAdminProfileRender);
 router.route('/admin-list').get(verifyJWT, isAdmin, handleAdminListRender);
 router.route('/student-list').get(verifyJWT, isAdmin, handleStudentListRender);
 router.route('/book-list').get(verifyJWT, isAdmin, handleBookListRender);
+router.route('/blog-list').get(verifyJWT, isAdmin, handleBlogListRender);
+
+// common for both 
 router.route('/upload-blog').get(verifyJWT, handleUploadBlogRender);
-router.route('/blog-list').get(verifyJWT, isAdmin, fetchAllBlogs);
-router.route('/blogs').get(verifyJWT, fetchAllBlogs);
+
 module.exports = router;

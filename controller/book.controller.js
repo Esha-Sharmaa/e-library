@@ -6,6 +6,7 @@ const uploadOnCloudinary = require("../utils/cloudinary.js");
 const { validationResult, matchedData } = require('express-validator');
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
 const addBook = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) throw new ApiError(422, "Data Validation errors", errors);
@@ -39,6 +40,10 @@ const addBook = asyncHandler(async (req, res) => {
     return res.status(201).json(new ApiResponse(201, createdBook, "Book Uploaded Successfully"));
 
 });
+const deleteBook = asyncHandler(async (req, res) => {
+
+});
 module.exports = {
-    addBook
+    addBook,
+    deleteBook
 }

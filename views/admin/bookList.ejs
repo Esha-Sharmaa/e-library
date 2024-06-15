@@ -1,5 +1,6 @@
 <%- include("header.ejs") %>
     <%- include("sidebar.ejs") %>
+
         <main id="main" class="main">
 
             <div class="pagetitle">
@@ -21,8 +22,11 @@
                                 <div class="d-flex justify-content-between align-items-center p-2">
                                     <h3 class="card-title">Books List</h3>
                                     <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                                        data-bs-target="#addAdminModal">Upload Book</button>
+                                        data-bs-target="#uploadBookModal">
+                                        Upload Book
+                                    </button>
                                 </div>
+
                                 <% if (errorMessages && errorMessages.length> 0) { %>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <% errorMessages.forEach(function(message) { %>
@@ -30,6 +34,7 @@
                                                 <% }) %>
                                     </div>
                                     <% } %>
+
                                         <% if (successMessages && successMessages.length> 0) { %>
                                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                                 <% successMessages.forEach(function(message) { %>
@@ -39,31 +44,30 @@
                                             <% } %>
 
                                                 <div class="row">
-
-                                                    <div class="col-md-4 col-sm-6 mb-4">
-                                                        <div class="card">
-                                                            <img src="images/jiwaji.png" class="card-img-top"
-                                                                alt="Book image">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">
-                                                                    Book Title
-                                                                </h5>
-                                                                <p class="card-text">by Book Author
-                                                                </p>
-                                                                <div class="tags">
-
-                                                                    <span class="badge bg-secondary">
-                                                                        MCA
-                                                                    </span>
-
+                                                    <% bookList.forEach(book=> { %>
+                                                        <div class="col-md-4 col-sm-6 mb-4">
+                                                            <div class="card">
+                                                                <img src="<%= book.coverImage %>" class="card-img-top"
+                                                                    alt="Book image">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">
+                                                                        <%= book.title %>
+                                                                    </h5>
+                                                                    <p class="card-text">by <%= book.author %>
+                                                                    </p>
+                                                                    <div class="tags">
+                                                                        <span class="badge bg-secondary">
+                                                                            <%= book.course %>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-
+                                                        <% }); %>
                                                 </div>
+
                                                 <!-- Pagination -->
-                                                <nav aria-label="Page navigation" class="pagination-container">
+                                                <nav aria-label="Page navigation" class="pagination-container page">
                                                     <ul class="pagination justify-content-center">
                                                         <% if (currentPage> 1) { %>
                                                             <li class="page-item">
@@ -92,5 +96,53 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Upload Book Modal -->
+            <div class="modal fade" id="uploadBookModal" tabindex="-1" aria-labelledby="uploadBookModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadBookModalLabel">Upload Book</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="api/v1/books/upload-book" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Book Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="author" class="form-label">Author</label>
+                                    <input type="text" class="form-control" id="author" name="author" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="coverImage" class="form-label">Cover Image</label>
+                                    <input type="file" class="form-control" id="coverImage" name="coverImage"
+                                        accept="image/*" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="book" class="form-label">Book File</label>
+                                    <input type="file" class="form-control" id="book" name="book" accept=".pdf,.docx"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="course" class="form-label">Course</label>
+                                    <select class="form-control" id="course" name="course" required>
+                                        <option value="MCA">MCA</option>
+                                        <option value="BCA">BCA</option>
+                                        <option value="MBA(E.Com)">MBA(E.Com)</option>
+                                        <option value="All">All</option>
+                                        <option value="General">General</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload Book</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main><!-- End #main -->
+
         <%- include('footer.ejs') %>
