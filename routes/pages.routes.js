@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const {
     handleUserHomePage,
+    handleUserProfilePage,
     handleLoginRender,
     handleAdminDashboardRender,
     handleAdminProfileRender,
@@ -21,6 +22,7 @@ router.route('/').get(handleUserHomePage);
 router.route('/login').get(handleLoginRender);
 router.route('/books').get(verifyJWT, handleBookListRender);
 router.route('/blogs').get(verifyJWT, handleBlogListRender);
+router.route('/profile').get(verifyJWT,handleUserProfilePage)
 
 // admin page routes
 router.route('/admin-dashboard').get(verifyJWT, isAdmin, handleAdminDashboardRender);

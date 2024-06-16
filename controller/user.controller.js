@@ -1,6 +1,5 @@
 const User = require('../models/user.model.js');
 const asyncHandler = require('../utils/asyncHandler.js');
-const ApiError = require('../utils/ApiError.js');
 const { validationResult, matchedData } = require('express-validator');
 const uploadOnCloudinary = require('../utils/cloudinary.js');
 const { verify } = require('jsonwebtoken');
