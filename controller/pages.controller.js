@@ -12,8 +12,9 @@ const handleLoginRender = (req, res) => {
 }
 const handleAdminDashboardRender = asyncHandler(async (req, res) => {
     const userList = await User.find();
-    const blogList = await Blog.find();
-    res.render('admin/dashboard', { loggedUser: req.user, userList, blogList });
+    const blogs = await Blog.countDocuments();
+    const bookList = await Book.find();
+    res.render('admin/dashboard', { loggedUser: req.user, userList, blogs, bookList });
 })
 const handleAdminProfileRender = (req, res) => {
     res.render("admin/profile", { loggedUser: req.user });
@@ -66,7 +67,7 @@ const handleBookListRender = asyncHandler(async (req, res) => {
 const handleBlogListRender = asyncHandler(async (req, res) => {
     try {
         const currentPage = parseInt(req.query.page) || 1;
-        const pageSize = 4;
+        const pageSize = 6;
         const skip = (currentPage - 1) * pageSize;
         // Get the total count of blogs
         const totalBlogs = await Blog.countDocuments();
@@ -112,6 +113,9 @@ const handleBlogListRender = asyncHandler(async (req, res) => {
         return res.status(500).redirect('/');
     }
 });
+const handleNoteListRender = asyncHandler(async (req, res) => {
+    return res.render('admin/noteList', { loggedUser: req.user })
+})
 const handleUploadBlogRender = (req, res) => {
     return res.render('admin/uploadBlog', { loggedUser: req.user });
 }
@@ -125,5 +129,5 @@ module.exports = {
     handleStudentListRender,
     handleUploadBlogRender,
     handleBlogListRender,
-    handleBookListRender
+    handleBookListRender, handleNoteListRender
 }

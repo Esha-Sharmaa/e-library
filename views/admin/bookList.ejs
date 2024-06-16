@@ -46,24 +46,33 @@
                                                 <div class="row">
                                                     <% bookList.forEach(book=> { %>
                                                         <div class="col-md-4 col-sm-6 mb-4">
-                                                            <div class="card">
-                                                                <img src="<%= book.coverImage %>" class="card-img-top"
-                                                                    alt="Book image">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title">
-                                                                        <%= book.title %>
+                                                            <div class="card h-100">
+                                                                <img src="<%= book.coverImage %>"
+                                                                    class="card-img-top h-100" alt="Book image">
+                                                                <div class="card-body d-flex flex-column">
+                                                                    <h5 class="card-title book-title">
+                                                                        <a href="<%= book.bookUrl %>" target="_blank">
+                                                                            <%= book.title %>
+                                                                        </a>
                                                                     </h5>
                                                                     <p class="card-text">by <%= book.author %>
                                                                     </p>
-                                                                    <div class="tags">
+                                                                    <div class="tags mt-auto">
+                                                                        <!-- mt-auto to push tags to bottom -->
                                                                         <span class="badge bg-secondary">
                                                                             <%= book.course %>
                                                                         </span>
+                                                                        <a href="api/v1/books/delete-book?id=<%= book._id %>"
+                                                                            class="btn badge bg-danger"
+                                                                            data-book-id="<%= book._id %>">
+                                                                            Delete
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <% }); %>
+
                                                 </div>
 
                                                 <!-- Pagination -->

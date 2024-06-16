@@ -8,7 +8,8 @@ const {
     handleStudentListRender,
     handleUploadBlogRender,
     handleBlogListRender,
-    handleBookListRender
+    handleBookListRender,
+    handleNoteListRender
 } = require("../controller/pages.controller.js");
 
 const verifyJWT = require('../middlewares/auth.middleware.js');
@@ -22,6 +23,7 @@ router.route('/login').get(handleLoginRender);
 router.route('/books').get(verifyJWT, handleBookListRender);
 router.route('/blogs').get(verifyJWT, handleBlogListRender);
 
+
 // admin page routes
 router.route('/admin-dashboard').get(verifyJWT, isAdmin, handleAdminDashboardRender);
 router.route('/admin-profile').get(verifyJWT, isAdmin, handleAdminProfileRender);
@@ -29,6 +31,7 @@ router.route('/admin-list').get(verifyJWT, isAdmin, handleAdminListRender);
 router.route('/student-list').get(verifyJWT, isAdmin, handleStudentListRender);
 router.route('/book-list').get(verifyJWT, isAdmin, handleBookListRender);
 router.route('/blog-list').get(verifyJWT, isAdmin, handleBlogListRender);
+router.route('/note-list').get(verifyJWT, handleNoteListRender);
 
 // common for both 
 router.route('/upload-blog').get(verifyJWT, handleUploadBlogRender);
