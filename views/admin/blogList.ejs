@@ -21,7 +21,7 @@
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center mt-2">
                                                 <img src="<%= blog.writerInfo.avatar %>" alt="Avatar"
                                                     class="rounded-circle" width="40" height="40">
                                                 <span class="ms-2 fw-bold">
@@ -32,8 +32,8 @@
                                         <h5 class="card-title fs-5 fw-bold mb-3">
                                             <%= blog.title %>
                                         </h5>
-                                        <div class="card-text mb-3">
-                                            <%- blog.content.substring(0, 300) %>...
+                                        <div class="card-text mb-3 text-justify">
+                                            <%- blog.content.substring(100, 300) %>...
                                         </div>
                                         <div class="">
                                             <a class="badge bg-primary"><i class="bi bi-eye me-1"></i> View</a>

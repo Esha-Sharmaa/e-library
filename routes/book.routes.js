@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const upload = require("../middlewares/multer.middleware.js");
 const validateUploadBookDetails = require('../validators/validateUploadBook.js');
+const validateId = require("../validators/validateId.js");
 const verifyJWT = require("../middlewares/auth.middleware.js");
 const isAdmin = require('../middlewares/isAdmin.middleware.js');
 const { addBook, deleteBook } = require("../controller/book.controller.js");
@@ -21,5 +22,6 @@ router.route("/upload-book").post(
     ]),
     validateUploadBookDetails,
     addBook);
-router.route("/delete-book").post(deleteBook);
+router.route("/delete-book").get(verifyJWT,
+    isAdmin, validateId, deleteBook);
 module.exports = router;
