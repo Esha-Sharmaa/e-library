@@ -1,60 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SOS Computer Application's E-Book Hub</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
 
     <!-- Favicons -->
-    <link href="images/favicon.ico" rel=" icon">
-    <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="images/favicon.ico" rel=" icon" />
+    <link href="images/apple-touch-icon.png" rel="apple-touch-icon" />
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet" />
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/userProfileStyle.css" />
+    <link rel="stylesheet" href="css/bookStyle.css" />
+    <link rel="stylesheet" href="css/blogStyle.css" />
+  </head>
 
-<body>
+  <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-home ">
-        <a class="navbar-brand navbar-brand-home" href="/">
-            <img src="images/jiwajij.png" alt="Logo" class="logo">
-            Jiwaji E-hub
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav navbar-nav-home mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/"><i class="bi bi-house-door"></i> Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/books"><i class="bi bi-book"></i> Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/blogs"><i class="bi bi-journal-text"></i> Blogs</a>
-                </li>
-            </ul>
-<div class="form-inline ml-auto">
-    <% if (req.cookies.accessToken && req.cookies.refreshToken) { %>
-        <a href="/profile" class="btn btn-outline-primary my-2 my-sm-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-home">
+      <a class="navbar-brand navbar-brand-home" href="/">
+        <img src="images/jiwajij.png" alt="Logo" class="logo" />
+        Jiwaji E-hub
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav navbar-nav-home mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/"
+              ><i class="bi bi-house-door"></i> Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/books"
+              ><i class="bi bi-book"></i> Books</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blogs"
+              ><i class="bi bi-journal-text"></i> Blogs</a
+            >
+          </li>
+        </ul>
+        <div class="form-inline ml-auto">
+          <% if (req.cookies.accessToken && req.cookies.refreshToken) { %>
+          <a href="/profile" class="btn btn-outline-primary my-2 my-sm-0">
             <i class="bi bi-person"></i> Profile
-        </a>
-        <% } else { %>
-            <a href="/login" class="btn btn-outline-primary my-2 my-sm-0">
-                <i class="bi bi-box-arrow-in-right"></i> Sign In
-            </a>
-            <% } %>
-</div>
+          </a>
+          <% } else { %>
+          <a href="/login" class="btn btn-outline-primary my-2 my-sm-0">
+            <i class="bi bi-box-arrow-in-right"></i> Sign In
+          </a>
+          <% } %>
         </div>
+      </div>
     </nav>
+  </body>
+</html>

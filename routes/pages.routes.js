@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const {
     handleUserHomePage,
+    handleUserProfilePage,
+    handleBooksPage,
+    handleBlogPage,
     handleLoginRender,
     handleAdminDashboardRender,
     handleAdminProfileRender,
@@ -9,7 +12,7 @@ const {
     handleUploadBlogRender,
     handleBlogListRender,
     handleBookListRender,
-    handleNoteListRender
+    handleNoteListRender,
 } = require("../controller/pages.controller.js");
 
 const verifyJWT = require('../middlewares/auth.middleware.js');
@@ -20,8 +23,9 @@ const router = Router();
 // user page routes
 router.route('/').get(handleUserHomePage);
 router.route('/login').get(handleLoginRender);
-router.route('/books').get(verifyJWT, handleBookListRender);
-router.route('/blogs').get(verifyJWT, handleBlogListRender);
+router.route('/books').get(verifyJWT, handleBooksPage);
+router.route('/blogs').get(verifyJWT, handleBlogPage);
+router.route('/profile').get(verifyJWT, handleUserProfilePage)
 
 
 // admin page routes

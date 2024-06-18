@@ -1,7 +1,6 @@
 const Book = require('../models/book.model.js');
 const asyncHandler = require('../utils/asyncHandler.js');
-
-const { uploadOnCloudinary, deleteFromCloudinary } = require("../utils/cloudinary.js");
+const uploadOnCloudinary = require("../utils/cloudinary.js");
 const { validationResult, matchedData } = require('express-validator');
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;

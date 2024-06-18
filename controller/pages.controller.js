@@ -7,6 +7,15 @@ const asyncHandler = require('../utils/asyncHandler.js');
 const handleUserHomePage = (req, res) => {
     res.render('user/index', { req });
 }
+const handleUserProfilePage = (req, res) => {
+    res.render('user/profile', { req })
+}
+const handleBlogPage = (req, res) => {
+    res.render('user/blog', { req })
+}
+const handleBooksPage = (req, res) => {
+    res.render('user/books', { req })
+}
 const handleLoginRender = (req, res) => {
     res.render('user/login');
 }
@@ -63,7 +72,6 @@ const handleBookListRender = asyncHandler(async (req, res) => {
         return res.render('user/500', { req });
     }
 });
-
 const handleBlogListRender = asyncHandler(async (req, res) => {
     try {
         const currentPage = parseInt(req.query.page) || 1;
@@ -122,6 +130,9 @@ const handleUploadBlogRender = (req, res) => {
 
 module.exports = {
     handleUserHomePage,
+    handleUserProfilePage,
+    handleBooksPage,
+    handleBlogPage,
     handleLoginRender,
     handleAdminDashboardRender,
     handleAdminProfileRender,

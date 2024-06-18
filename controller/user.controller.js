@@ -1,6 +1,5 @@
 const User = require('../models/user.model.js');
 const asyncHandler = require('../utils/asyncHandler.js');
-const ApiError = require('../utils/ApiError.js');
 const { validationResult, matchedData } = require('express-validator');
 const uploadOnCloudinary = require('../utils/cloudinary.js');
 const { verify } = require('jsonwebtoken');
@@ -70,7 +69,6 @@ const registerUser = asyncHandler(async (req, res) => {
     else
         return res.status(201).redirect('/student-list');
 });
-
 const loginUser = asyncHandler(async (req, res) => {
     const { enrollmentNumber, password } = req.body;
 
