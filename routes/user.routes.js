@@ -2,7 +2,7 @@ const { Router } = require('express');
 const upload = require('../middlewares/multer.middleware.js');
 const validateRegisterUser = require('../validators/validateRegisterUser.js');
 const validateUpdateUser = require("../validators/validateUpdateUser.js");
-const validateDeleteUser = require("../validators/validateDeleteUser.js");
+const validateId = require("../validators/validateId.js");
 const {
     registerUser,
     loginUser,
@@ -26,6 +26,6 @@ router.route("/update-details").post(verifyJWT, validateUpdateUser, updateUserDe
 router.route("/user-info").get(verifyJWT, getUserInfo);
 router.route("/register").post(verifyJWT, isAdmin, upload.single('avatar'), validateRegisterUser, registerUser);
 router.route("/update-avatar").post(upload.single('avatar'), verifyJWT, updateUserAvatar);
-router.route("/delete-user").get(verifyJWT, isAdmin, validateDeleteUser, deleteUser);
+router.route("/delete-user").get(verifyJWT, isAdmin, validateId, deleteUser);
 
 module.exports = router;

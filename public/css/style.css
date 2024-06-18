@@ -400,36 +400,3 @@ textarea.form-control {
   border-top: 1px soid red;
 }
 
-/* user profile css */
-
-body {
-  background: linear-gradient(to right, #e0eafc, #cfdef3) !important;
-}
-.profile-card {
-  background-color: white;
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.profile-header {
-  background-color: #f8f9fa;
-  border-radius: 15px 15px 0 0;
-  padding: 20px;
-  text-align: center;
-}
-.profile-img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-top: -75px;
-  border: 5px solid white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.form-control:disabled,
-.form-control[readonly] {
-  background-color: #f8f9fa;
-}
-.btn-edit,
-.btn-add {
-  border-radius: 25px;
-}

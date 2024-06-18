@@ -21,7 +21,7 @@ const generateAccessAndRefreshToken = async (id) => {
     } catch (error) {
         console.log("Error while generating tokens", error);
         throw new ApiError(500, "Internal Server Error");
-        
+
     }
 }
 const renderAdminDashboard = (req, res) => {
@@ -69,7 +69,6 @@ const registerUser = asyncHandler(async (req, res) => {
     else
         return res.status(201).redirect('/student-list');
 });
-
 const loginUser = asyncHandler(async (req, res) => {
     const { enrollmentNumber, password } = req.body;
 
@@ -198,7 +197,9 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 
     const { fullName, email, phoneNumber, course, gender, DOB } = matchedData(req);
     const existedUser = await User.findOne({ $or: { email, phoneNumber } });
-    if (existedUser &&  existedUser._id !== req.user._id) {
+    console.info(existedUser._id , req.user._id);
+    if (existedUser && existedUser._id !== req.user._id) {
+        console.log("entered here");
         req.flash('error', 'User already exists');
         if (req.user.role === 'Admin')
             return res.status(402).redirect('/admin-profile');

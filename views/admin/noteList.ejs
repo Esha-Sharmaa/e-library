@@ -1,0 +1,103 @@
+<%- include("header.ejs") %>
+    <%- include("sidebar.ejs") %>
+
+        <main id="main" class="main">
+
+            <div class="pagetitle">
+                <h1>Book List</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin-dashboard">Home</a></li>
+                        <li class="breadcrumb-item">Manage Books</li>
+                        <li class="breadcrumb-item active">Notes</li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
+
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center p-2">
+                                    <h3 class="card-title">Notes List</h3>
+                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                        data-bs-target="#uploadBookModal">
+                                        Upload Notes
+                                    </button>
+                                </div>
+
+                                <% if (errorMessages && errorMessages.length> 0) { %>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <% errorMessages.forEach(function(message) { %>
+                                            <%= message %>
+                                                <% }) %>
+                                    </div>
+                                    <% } %>
+
+                                        <% if (successMessages && successMessages.length> 0) { %>
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <% successMessages.forEach(function(message) { %>
+                                                    <%= message %>
+                                                        <% }) %>
+                                            </div>
+                                            <% } %>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Book Modal -->
+            <div class="modal fade" id="uploadBookModal" tabindex="-1" aria-labelledby="uploadBookModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadBookModalLabel">Upload Book</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="api/v1/books/upload-book" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Book Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="author" class="form-label">Author</label>
+                                    <input type="text" class="form-control" id="author" name="author" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="coverImage" class="form-label">Cover Image</label>
+                                    <input type="file" class="form-control" id="coverImage" name="coverImage"
+                                        accept="image/*" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="book" class="form-label">Book File</label>
+                                    <input type="file" class="form-control" id="book" name="book" accept=".pdf,.docx"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="course" class="form-label">Course</label>
+                                    <select class="form-control" id="course" name="course" required>
+                                        <option value="MCA">MCA</option>
+                                        <option value="BCA">BCA</option>
+                                        <option value="MBA(E.Com)">MBA(E.Com)</option>
+                                        <option value="All">All</option>
+                                        <option value="General">General</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload Book</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main><!-- End #main -->
+
+        <%- include('footer.ejs') %>

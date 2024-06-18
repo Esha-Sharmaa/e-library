@@ -6,6 +6,7 @@ const { validationResult, matchedData } = require('express-validator');
 const addBlog = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log(errors);
         req.flash("error", errors.array().map(err => err.msg).join(' '));
         return res.status(400).redirect('/upload-blog');
     }
@@ -23,6 +24,7 @@ const addBlog = asyncHandler(async (req, res) => {
         req.flash("success", "Blog successfully created");
         return res.status(201).redirect("/upload-blog");
     } catch (error) {
+        console.log(error);
         req.flash("error", "Error while uploading your blog. Try again later");
         return res.status(500).redirect('/upload-blog');
     }
