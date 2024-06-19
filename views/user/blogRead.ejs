@@ -1,0 +1,29 @@
+<%- include("header.ejs") %> <br /> <br /><br />
+    <!-- Main Blog Post -->
+    <div class="container mt-5 blog-container">
+        <div class="blog-post">
+            <h2>
+                <%= blog.title %>
+            </h2>
+            <div class="d-flex justify-content-between">
+
+                <div class="d-flex align-items-center">
+                    <img src=" <%=blog.writer.avatar %>" width="40px" class="writer-avatar" />
+                    <p class="blog-meta me-2">
+                        <%= blog.writer.fullName %>
+                    </p>
+                </div>
+                <p class="blog-meta">
+                    <%= blog.createdAt.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' , day: 'numeric'
+                        }) %>
+                </p>
+
+
+            </div>
+            <hr>
+            <div>
+                <%- blog.content %>
+            </div>
+        </div>
+    </div>
+    <%- include("footer.ejs") %>

@@ -1,7 +1,7 @@
 const User = require('../models/user.model.js');
 const asyncHandler = require('../utils/asyncHandler.js');
 const { validationResult, matchedData } = require('express-validator');
-const uploadOnCloudinary = require('../utils/cloudinary.js');
+const { uploadOnCloudinary } = require('../utils/cloudinary.js');
 const { verify } = require('jsonwebtoken');
 
 
@@ -30,8 +30,10 @@ const renderAdminDashboard = (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        req.flash('error', 'Invalid input data');
+        const errorMessages = errors.array().map(error => error.msg).join(', ');
+        req.flash('error', errorMessages);
         return res.status(422).redirect('/admin-list');
+
     }
 
     const { enrollmentNumber, fullName, password, email, phoneNumber, role } = matchedData(req);
@@ -166,6 +168,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 const updateUserAvatar = asyncHandler(async (req, res) => {
     const avatarLocalPath = req?.file?.path;
     if (!avatarLocalPath) {
+
         req.flash('error', 'Avatar image is required');
         return res.status(400).redirect('/admin-profile');
     }
@@ -184,27 +187,32 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     }).select("-password -refreshToken");
 
     req.flash('success', 'Avatar updated successfully');
-    res.status(200).redirect('/admin-profile');
+    if (req.user.role === 'Admin') return res.status(200).redirect('/admin-profile');
+    return res.status(200).redirect('user/profile');
 
 });
 const updateUserDetails = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         console.log(errors);
-        req.flash('error', 'Validation errors');
-        return res.status(400).redirect('/admin-profile');
+        const errorMessages = errors.array().map(error => error.msg).join(', ');
+        req.flash('error', errorMessages);
+        if (req.user.role === 'Admin')
+            return res.status(400).redirect('/admin-profile');
+        else
+            return res.status(400).redirect('/profile');
     }
 
     const { fullName, email, phoneNumber, course, gender, DOB } = matchedData(req);
     const existedUser = await User.findOne({ $or: { email, phoneNumber } });
-    console.info(existedUser._id , req.user._id);
-    if (existedUser && existedUser._id !== req.user._id) {
+
+    if (existedUser && existedUser._id.toString() !== req.user._id.toString()) {
         console.log("entered here");
         req.flash('error', 'User already exists');
         if (req.user.role === 'Admin')
             return res.status(402).redirect('/admin-profile');
         else
-            return res.status(402).redirect('/user-profile');
+            return res.status(402).redirect('/profile');
     }
     let updateFields = {};
     if (fullName) updateFields.fullName = fullName;
@@ -223,13 +231,13 @@ const updateUserDetails = asyncHandler(async (req, res) => {
         if (req.user.role === 'Admin')
             return res.status(500).redirect('/admin-profile');
         else
-            return res.status(500).redirect('/user-profile');
+            return res.status(500).redirect('/profile');
     }
     req.flash('success', 'User data updated successfully');
     if (req.user.role === 'Admin')
         return res.status(200).redirect('/admin-profile');
     else
-        return res.status(200).redirect('/user-profile');
+        return res.status(200).redirect('/profile');
 
 });
 const getUserInfo = asyncHandler(async (req, res) => {

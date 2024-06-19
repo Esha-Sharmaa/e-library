@@ -1,6 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: "Montserrat", sans-serif;
-  background-color: #f8f9fa;
+  font-family: "Merriweather Sans", sans-serif;
+  font-optical-sizing: auto;
+  background: #f6f9ff;
+  color: #444444;
+  background: linear-gradient(to right, #e0eafc, #cfdef3) !important;
 }
 
 .navbar-brand {
@@ -28,12 +43,12 @@ h3 {
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 600;
 }
 
 .card-text {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .rounded-circle {
@@ -51,21 +66,8 @@ h3 {
   font-weight: 600;
 }
 
-.btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
-}
 
-.btn-outline-primary:hover {
-  background-color: #007bff;
-  color: white;
-}
 
-.btn-primary {
-  background-color: #007bff;
-  border: none;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
+.page-link {
+  background-color: white;
 }

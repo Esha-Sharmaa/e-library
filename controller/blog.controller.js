@@ -8,7 +8,8 @@ const addBlog = asyncHandler(async (req, res) => {
     if (!errors.isEmpty()) {
         console.log(errors);
         req.flash("error", errors.array().map(err => err.msg).join(' '));
-        return res.status(400).redirect('/upload-blog');
+        if (req.user.role === "Admin") return res.status(400).redirect('/upload-blog');
+        else return res.status(400).redirect('/blogs');
     }
 
     const { blogTitle, blogContent } = matchedData(req, { locations: ['body'] });
@@ -22,11 +23,13 @@ const addBlog = asyncHandler(async (req, res) => {
         });
 
         req.flash("success", "Blog successfully created");
-        return res.status(201).redirect("/upload-blog");
+        if (req.user.role === "Admin") return res.status(400).redirect('/upload-blog');
+        else return res.status(400).redirect('/blogs');
     } catch (error) {
         console.log(error);
         req.flash("error", "Error while uploading your blog. Try again later");
-        return res.status(500).redirect('/upload-blog');
+        if (req.user.role === "Admin") return res.status(400).redirect('/upload-blog');
+        else return res.status(400).redirect('/blogs');
     }
 });
 const removeBlog = asyncHandler(async (req, res) => {

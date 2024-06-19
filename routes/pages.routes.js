@@ -13,11 +13,12 @@ const {
     handleBlogListRender,
     handleBookListRender,
     handleNoteListRender,
+    handleRenderBlogReadPage
 } = require("../controller/pages.controller.js");
 
 const verifyJWT = require('../middlewares/auth.middleware.js');
 const isAdmin = require("../middlewares/isAdmin.middleware.js");
-
+const validateId = require("../validators/validateId.js");
 const router = Router();
 
 // user page routes
@@ -39,5 +40,6 @@ router.route('/note-list').get(verifyJWT, handleNoteListRender);
 
 // common for both 
 router.route('/upload-blog').get(verifyJWT, handleUploadBlogRender);
+router.route('/read-blog').get(verifyJWT, validateId, handleRenderBlogReadPage);
 
 module.exports = router;

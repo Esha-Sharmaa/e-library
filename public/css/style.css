@@ -90,12 +90,10 @@ body {
   font-size: 2.8rem;
   font-weight: bold;
   color: #65b0d5;
-  background: linear-gradient(
-    235deg,
-    rgb(180, 160, 190),
-    #4a8ab0,
-    rgb(180, 160, 190)
-  );
+  background: linear-gradient(235deg,
+      rgb(180, 160, 190),
+      #4a8ab0,
+      rgb(180, 160, 190));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -307,8 +305,8 @@ textarea.form-control {
 }
 
 /* login form  */
-.form-control:focus ~ label,
-.form-control:not(:placeholder-shown) ~ label {
+.form-control:focus~label,
+.form-control:not(:placeholder-shown)~label {
   top: -1em;
   left: 0.75em;
   font-size: 0.75em;
@@ -400,3 +398,10 @@ textarea.form-control {
   border-top: 1px soid red;
 }
 
+#changePassword {
+  min-height: 70vh;
+}
+
+.profile-card {
+  margin-bottom: 1rem;
+}

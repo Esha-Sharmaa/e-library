@@ -1,6 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: "Montserrat", sans-serif;
-  background-color: #f8f9fa;
+  font-family: "Merriweather Sans", sans-serif;
+  font-optical-sizing: auto;
+  background: #f6f9ff;
+  color: #444444;
+  background: linear-gradient(to right, #e0eafc, #cfdef3) !important;
 }
 
 .navbar-brand {
@@ -39,27 +54,32 @@ body {
 .pagination .page-item.active .page-link {
   background-color: #007bff;
   border-color: #007bff;
-}
-
-.page-link {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-outline-primary:hover {
-  background-color: #007bff;
   color: white;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border: none;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
 }
 
 .additional-content {
   display: none;
+}
+
+.blog-container {
+  background-color: #f8f9fa;
+  width: 70vw;
+  padding: 2rem;
+  margin-block: 2rem;
+}
+
+@media (max-width: 768px) {
+  .blog-container {
+    width: 90vw;
+    /* Adjust width for smaller screens */
+    padding: 1rem;
+    /* Adjust padding for smaller screens */
+    margin-block: 1rem;
+    /* Adjust margin for smaller screens */
+  }
+}
+
+.writer-avatar {
+  border-radius: 50%;
+  margin-right: 0.5rem;
 }
