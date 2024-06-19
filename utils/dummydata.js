@@ -1,0 +1,222 @@
+[
+    {
+        "fullName": "John Doe",
+        "enrollmentNumber": "ENR001",
+        "email": "john.doe@example.com",
+        "phoneNumber": "1234567890",
+        "password": "StrongPass!123",
+        "role": "Student",
+        "course": "BCA",
+        "gender": "Male",
+        "DOB": "2000-01-01"
+    },
+    {
+        "fullName": "Jane Smith",
+        "enrollmentNumber": "ENR002",
+        "email": "jane.smith@example.com",
+        "phoneNumber": "1234567891",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "MCA",
+        "gender": "Female",
+        "DOB": "1998-05-10"
+    },
+    {
+        "fullName": "Alice Johnson",
+        "enrollmentNumber": "ENR003",
+        "email": "alice.johnson@example.com",
+        "phoneNumber": "1234567892",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "MBA(E.com)",
+        "gender": "Female",
+        "DOB": "1999-11-15"
+    },
+    {
+        "fullName": "Bob Brown",
+        "enrollmentNumber": "ENR004",
+        "email": "bob.brown@example.com",
+        "phoneNumber": "1234567893",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "Faculty",
+        "gender": "Male",
+        "DOB": "1975-03-20"
+    },
+    {
+        "fullName": "Charlie Davis",
+        "enrollmentNumber": "ENR005",
+        "email": "charlie.davis@example.com",
+        "phoneNumber": "1234567894",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "BCA",
+        "gender": "Male",
+        "DOB": "1990-07-12"
+    },
+    {
+        "fullName": "David Evans",
+        "enrollmentNumber": "ENR006",
+        "email": "david.evans@example.com",
+        "phoneNumber": "1234567895",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "MCA",
+        "gender": "Male",
+        "DOB": "1982-09-30"
+    },
+    {
+        "fullName": "Eve Foster",
+        "enrollmentNumber": "ENR007",
+        "email": "eve.foster@example.com",
+        "phoneNumber": "1234567896",
+        "password": "StrongPass!123",
+        "role": "Student",
+        "course": "MBA(E.com)",
+        "gender": "Female",
+        "DOB": "1995-04-25"
+    },
+    {
+        "fullName": "Frank Green",
+        "enrollmentNumber": "ENR008",
+        "email": "frank.green@example.com",
+        "phoneNumber": "1234567897",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "Faculty",
+        "gender": "Male",
+        "DOB": "1978-12-15"
+    },
+    {
+        "fullName": "Grace Harris",
+        "enrollmentNumber": "ENR009",
+        "email": "grace.harris@example.com",
+        "phoneNumber": "1234567898",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "BCA",
+        "gender": "Female",
+        "DOB": "1986-03-05"
+    },
+    {
+        "fullName": "Henry Irvine",
+        "enrollmentNumber": "ENR010",
+        "email": "henry.irvine@example.com",
+        "phoneNumber": "1234567899",
+        "password": "StrongPass!123",
+        "role": "Student",
+        "course": "MCA",
+        "gender": "Male",
+        "DOB": "1992-08-19"
+    },
+    {
+        "fullName": "Isabel Jones",
+        "enrollmentNumber": "ENR011",
+        "email": "isabel.jones@example.com",
+        "phoneNumber": "1234567810",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "MBA(E.com)",
+        "gender": "Female",
+        "DOB": "1990-12-10"
+    },
+    {
+        "fullName": "Jack King",
+        "enrollmentNumber": "ENR012",
+        "email": "jack.king@example.com",
+        "phoneNumber": "1234567811",
+        "password": "StrongPass!123",
+        "role": "Student",
+        "course": "Faculty",
+        "gender": "Male",
+        "DOB": "1988-11-22"
+    },
+    {
+        "fullName": "Karen Lewis",
+        "enrollmentNumber": "ENR013",
+        "email": "karen.lewis@example.com",
+        "phoneNumber": "1234567812",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "BCA",
+        "gender": "Female",
+        "DOB": "1979-04-15"
+    },
+    {
+        "fullName": "Larry Miller",
+        "enrollmentNumber": "ENR014",
+        "email": "larry.miller@example.com",
+        "phoneNumber": "1234567813",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "MCA",
+        "gender": "Male",
+        "DOB": "1983-06-17"
+    },
+    {
+        "fullName": "Megan Nelson",
+        "enrollmentNumber": "ENR015",
+        "email": "megan.nelson@example.com",
+        "phoneNumber": "1234567814",
+        "password": "StrongPass!123",
+        "role": "Student",
+        "course": "MBA(E.com)",
+        "gender": "Female",
+        "DOB": "1994-10-08"
+    },
+    {
+        "fullName": "Nathan Owens",
+        "enrollmentNumber": "ENR016",
+        "email": "nathan.owens@example.com",
+        "phoneNumber": "1234567815",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "Faculty",
+        "gender": "Male",
+        "DOB": "1977-05-12"
+    },
+    {
+        "fullName": "Olivia Parker",
+        "enrollmentNumber": "ENR017",
+        "email": "olivia.parker@example.com",
+        "phoneNumber": "1234567816",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "BCA",
+        "gender": "Female",
+        "DOB": "1985-07-20"
+    },
+    {
+        "fullName": "Paul Quinn",
+        "enrollmentNumber": "ENR018",
+        "email": "paul.quinn@example.com",
+        "phoneNumber": "1234567817",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "MCA",
+        "gender": "Male",
+        "DOB": "1980-02-14"
+    },
+    {
+        "fullName": "Quincy Ross",
+        "enrollmentNumber": "ENR019",
+        "email": "quincy.ross@example.com",
+        "phoneNumber": "1234567818",
+        "password": "StrongPass!123",
+        "role": "Student",
+        "course": "MBA(E.com)",
+        "gender": "Male",
+        "DOB": "1993-09-21"
+    },
+    {
+        "fullName": "Rachel Scott",
+        "enrollmentNumber": "ENR020",
+        "email": "rachel.scott@example.com",
+        "phoneNumber": "1234567819",
+        "password": "StrongPass!123",
+        "role": "Admin",
+        "course": "Faculty",
+        "gender": "Female",
+        "DOB": "1976-08-30"
+    }
+]
