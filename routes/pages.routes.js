@@ -42,4 +42,5 @@ router.route('/note-list').get(verifyJWT, handleNoteListRender);
 router.route('/upload-blog').get(verifyJWT, handleUploadBlogRender);
 router.route('/read-blog').get(verifyJWT, validateId, handleRenderBlogReadPage);
 
+
 module.exports = router;

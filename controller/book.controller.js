@@ -3,7 +3,7 @@ const asyncHandler = require('../utils/asyncHandler.js');
 const { uploadOnCloudinary, deleteFromCloudinary } = require("../utils/cloudinary.js");
 const { validationResult, matchedData } = require('express-validator');
 
-const MAX_FILE_SIZE = 25 * 1024 * 1024;
+const MAX_FILE_SIZE = 15 * 1024 * 1024;
 
 const addBook = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
@@ -40,7 +40,7 @@ const addBook = asyncHandler(async (req, res) => {
     const bookUrl = await uploadOnCloudinary(bookLocalPath, { resource_type: "auto" });
 
     if (!coverImageUrl || !bookUrl) {
-        return res.status(500).redirect('/500');
+        return res.status(500).render('user/500', { req });
     }
     const createdBook = await Book.create({
         title,
@@ -51,7 +51,7 @@ const addBook = asyncHandler(async (req, res) => {
         course
     });
     if (!createdBook) {
-        return res.status(500).redirect('/500');
+        return res.status(500).render('user/500', { req });
     }
     req.flash('success', "Book Added successfully");
     return res.status(201).redirect('/book-list');
