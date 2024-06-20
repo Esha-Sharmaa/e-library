@@ -53,7 +53,7 @@ const addBook = asyncHandler(async (req, res) => {
     if (!createdBook) {
         return res.status(500).redirect('/500');
     }
-
+    req.flash('success', "Book Updated successfully");
     return res.status(201).redirect('/book-list');
 
 });
