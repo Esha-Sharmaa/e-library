@@ -22,6 +22,6 @@ router.route("/upload-book").post(
     ]),
     validateUploadBookDetails,
     addBook);
-router.route("/deletevalidateId-book").get(verifyJWT,
+router.route("/delete-book").get(verifyJWT,
     isAdmin, validateId, deleteBook);
 module.exports = router;

@@ -3,7 +3,7 @@ const asyncHandler = require('../utils/asyncHandler.js');
 const { uploadOnCloudinary } = require("../utils/cloudinary.js");
 const { validationResult, matchedData } = require('express-validator');
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 const addBook = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
@@ -53,7 +53,7 @@ const addBook = asyncHandler(async (req, res) => {
     if (!createdBook) {
         return res.status(500).redirect('/500');
     }
-    req.flash('success', "Book Updated successfully");
+    req.flash('success', "Book Added successfully");
     return res.status(201).redirect('/book-list');
 
 });
