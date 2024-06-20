@@ -18,45 +18,45 @@
                     <form action="/api/v1/blogs/add-blog" method="post">
                         <div class="col-lg-12">
                             <% if (errorMessages && errorMessages.length> 0) { %>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span class="error-message alert-dismissible fade show" role="alert">
                                     <% errorMessages.forEach(function(message) { %>
-                                        <%= message %>
-
-                                            <% }) %>
-                                </div>
+                                        <p>
+                                            <%= message %>
+                                        </p>
+                                        <% }) %>
+                                </span>
                                 <% } %>
                                     <% if (successMessages && successMessages.length> 0) { %>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <span class="success-message alert-dismissible fade show" role="alert">
                                             <% successMessages.forEach(function(message) { %>
                                                 <%= message %>
 
                                                     <% }) %>
-                                        </div>
-                                        <% } %>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <label for="blogTitle" class="form-label card-title">Blog
-                                                        Title</label>
-                                                    <input type="text" class="form-control blog-title" id="blogTitle"
-                                                        name="blogTitle"
-                                                        style="background-color: #222f3e; color: white;"
-                                                        placeholder="Write Blog Title Here" required>
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">TinyMCE Editor</h5>
-                                                    <!-- TinyMCE Editor -->
-                                                    <textarea class="tinymce-editor" name="blogContent">
+                                        </span>
+                        <% } %>
+                            <div class="card">
+                                <div class="card-body">
+                                    <label for="blogTitle" class="form-label card-title">Blog
+                                        Title</label>
+                                    <input type="text" class="form-control blog-title" id="blogTitle" name="blogTitle"
+                                        style="background-color: #222f3e; color: white;"
+                                        placeholder="Write Blog Title Here" required>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">TinyMCE Editor</h5>
+                                    <!-- TinyMCE Editor -->
+                                    <textarea class="tinymce-editor" name="blogContent">
                             <h1>Hello <%= loggedUser.fullName %></h1>
                             <p>This is the Editor. Write your blog here.</p>
                             <p>Happy Writing 😀😀</p>
                         </textarea><!-- End TinyMCE Editor -->
-                                                    <button type="submit" class="btn btn-primary mt-3">Upload</button>
-                                                </div>
-                                            </div>
-                        </div>
-                    </form>
+                                    <button type="submit" class="btn btn-primary mt-3">Upload</button>
+                                </div>
+                            </div>
+                </div>
+                </form>
                 </div>
             </section>
 

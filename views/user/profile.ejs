@@ -32,9 +32,26 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-12 text-center mt-5 mb-3">
-        <h4>Welcome, <%= loggedUser.fullName %>
-        </h4>
-        <p id="currentDateTime" class="text-muted"></p>
+        <% if (errorMessages && errorMessages.length> 0) { %>
+          <span class="error-message" role="alert">
+            <% errorMessages.forEach(function(message) { %>
+
+              <%= message %>
+
+                <% }) %>
+          </span>
+          <% } %>
+            <% if (successMessages && successMessages.length> 0) { %>
+              <span class="success-message alert-dismissible fade show" role="alert">
+                <% successMessages.forEach(function(message) { %>
+                  <%= message %>
+
+                    <% }) %>
+              </span>
+              <% } %>
+                <h4>Welcome, <%= loggedUser.fullName %>
+                </h4>
+                <p id="currentDateTime" class="text-muted"></p>
       </div>
     </div>
 

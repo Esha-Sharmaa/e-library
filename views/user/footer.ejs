@@ -1,13 +1,33 @@
-<footer class="footer">
-    <div class="container text-center">
-        <p>No Copyright &copy; forever.</p>
-        <p>
-            Design & Developed By
-            <a href="https://github.com/" target="_blank">DEVRAJ</a> &
-            <a href="https://github.com/" target="_blank">ESHA</a>
-        </p>
+<footer class="footer text-white animate">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Follow Us</h5>
+        <div class="social-icons">
+          <a href="#" target="_blank" class="social"><i class="bi bi-facebook"></i></a>
+          <a href="#" target="_blank" class="social"><i class="bi bi-twitter"></i></a>
+          <a href="#" target="_blank" class="social"><i class="bi bi-linkedin"></i></a>
+          <a href="#" target="_blank" class="social"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h5>Contact Us</h5>
+        <p>Email: contact@example.com<br> Phone: +1234567890</p>
+      </div>
+      <div class="col-md-4">
+        <h5>About Us</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam, urna vitae pulvinar.</p>
+      </div>
     </div>
+    <hr class="my-4">
+    <p class="mb-0">Design & Developed By
+      <a href="https://github.com/DevrajPun" target="_blank">DEVRAJ</a> &
+      <a href="https://github.com/Esha-Sharmaa" target="_blank">ESHA</a>
+    </p>
+    <p class="mb-0">No Copyright &copy; forever.</p>
+  </div>
 </footer>
+
 
 <!-- time and date script -->
 <script>
@@ -34,14 +54,14 @@
 </script>
 
 <script>
-    // JavaScript for image preview
-    function loadFile(event) {
-      var image = document.getElementById("profileImage");
-      image.src = URL.createObjectURL(event.target.files[0]);
-      image.onload = function () {
-        URL.revokeObjectURL(image.src); // free memory
-      };
-    }
+  // JavaScript for image preview
+  function loadFile(event) {
+    var image = document.getElementById("profileImage");
+    image.src = URL.createObjectURL(event.target.files[0]);
+    image.onload = function () {
+      URL.revokeObjectURL(image.src); // free memory
+    };
+  }
 </script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -53,13 +73,13 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
-    // Example using Google Maps embed code
-    function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8
-        });
-    }
+  // Example using Google Maps embed code
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8
+    });
+  }
 </script>
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

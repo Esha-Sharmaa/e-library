@@ -18,10 +18,7 @@ body {
   background: linear-gradient(to right, #e0eafc, #cfdef3) !important;
 }
 
-.navbar-brand {
-  font-size: 1.75rem;
-  font-weight: 600;
-}
+
 
 .card-title {
   font-size: 1.5rem;

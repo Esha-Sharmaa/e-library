@@ -129,125 +129,146 @@
 
                                     <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
                                         <% if (errorMessages && errorMessages.length> 0) { %>
-                                            <span class="alert">
+                                            <span class="error-message" role="alert">
                                                 <% errorMessages.forEach(function(message) { %>
-                                                    <p>
-                                                        <%= message %>
-                                                    </p>
-                                                    <% }) %>
+
+                                                    <%= message %>
+
+                                                        <% }) %>
                                             </span>
                                             <% } %>
-                                                <!-- Profile Edit Form -->
-                                                <form enctype="multipart/form-data" method="POST"
-                                                    action="/api/v1/users/update-avatar">
-                                                    <div class="row mb-3">
-                                                        <label for="profileImage"
-                                                            class="col-md-4 col-lg-3 col-form-label">Profile
-                                                            Image</label>
-                                                        <div class="col-md-8 col-lg-9">
-                                                            <img src="<%= loggedUser.avatar %>" alt="Profile">
-                                                            <div class="pt-2">
-                                                                <!-- Upload Input -->
-                                                                <label for="avatar" class="btn btn-primary btn-sm">
-                                                                    <i class="bi bi-upload"></i> Upload
-                                                                </label>
-                                                                <input type="file" id="avatar" name="avatar"
-                                                                    style="display: none;">
+                                                <% if (successMessages && successMessages.length> 0) { %>
+                                                    <span class="success-message alert-dismissible fade show"
+                                                        role="alert">
+                                                        <% successMessages.forEach(function(message) { %>
+                                                            <%= message %>
 
-                                                                <!-- Save Button -->
-                                                                <button class="btn btn-success btn-sm" type="submit"><i
-                                                                        class="bi bi-save"></i>
-                                                                    Save</button>
+                                                                <% }) %>
+                                                    </span>
+                                                    <% } %>
+
+                                                        <!-- Profile Edit Form -->
+                                                        <form enctype="multipart/form-data" method="POST"
+                                                            action="/api/v1/users/update-avatar">
+                                                            <div class="row mb-3">
+                                                                <label for="profileImage"
+                                                                    class="col-md-4 col-lg-3 col-form-label">Profile
+                                                                    Image</label>
+                                                                <div class="col-md-8 col-lg-9">
+                                                                    <img src="<%= loggedUser.avatar %>" alt="Profile">
+                                                                    <div class="pt-2">
+                                                                        <!-- Upload Input -->
+                                                                        <label for="avatar"
+                                                                            class="btn btn-primary btn-sm">
+                                                                            <i class="bi bi-upload"></i> Upload
+                                                                        </label>
+                                                                        <input type="file" id="avatar" name="avatar"
+                                                                            style="display: none;">
+
+                                                                        <!-- Save Button -->
+                                                                        <button class="btn btn-success btn-sm"
+                                                                            type="submit"><i class="bi bi-save"></i>
+                                                                            Save</button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                        </form>
 
-                                                <form method="post" action="/api/v1/users/update-details">
-                                                    <!-- Other form fields -->
-                                                    <div class="row mb-3">
-                                                        <label for="fullName"
-                                                            class="col-md-4 col-lg-3 col-form-label">Full
-                                                            Name</label>
-                                                        <div class="col-md-8 col-lg-9">
-                                                            <input name="fullName" type="text" class="form-control"
-                                                                id="fullName" value="<%= loggedUser.fullName %>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                        <label for="course"
-                                                            class="col-md-4 col-lg-3 col-form-label">Role(Dept)</label>
-                                                        <div class="col-md-8 col-lg-9">
+                                                        <form method="post" action="/api/v1/users/update-details">
+                                                            <!-- Other form fields -->
+                                                            <div class="row mb-3">
+                                                                <label for="fullName"
+                                                                    class="col-md-4 col-lg-3 col-form-label">Full
+                                                                    Name</label>
+                                                                <div class="col-md-8 col-lg-9">
+                                                                    <input name="fullName" type="text"
+                                                                        class="form-control" id="fullName"
+                                                                        value="<%= loggedUser.fullName %>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <label for="course"
+                                                                    class="col-md-4 col-lg-3 col-form-label">Role(Dept)</label>
+                                                                <div class="col-md-8 col-lg-9">
 
-                                                            <select name="course" id="course" class="form-select">
-                                                                <!-- Ensure the value attribute matches the option text -->
-                                                                <option value="BCA" <% if (loggedUser.course==='BCA' ) {
-                                                                    %>
-                                                                    selected<% } %>>BCA</option>
-                                                                <option value="MCA" <% if (loggedUser.course==='MCA' ) {
-                                                                    %>
-                                                                    selected<% } %>>MCA</option>
-                                                                <option value="MBA(E.com)" <% if
-                                                                    (loggedUser.course==='MBA(E.com)' ) { %>selected<% }
-                                                                        %>
-                                                                        >MBA(E.com)</option>
-                                                                <option value="Faculty" <% if
-                                                                    (loggedUser.course==='Faculty' ) { %>selected<% } %>
-                                                                        >Faculty</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                                    <select name="course" id="course"
+                                                                        class="form-select">
+                                                                        <!-- Ensure the value attribute matches the option text -->
+                                                                        <option value="BCA" <% if
+                                                                            (loggedUser.course==='BCA' ) { %>
+                                                                            selected<% } %>>BCA</option>
+                                                                        <option value="MCA" <% if
+                                                                            (loggedUser.course==='MCA' ) { %>
+                                                                            selected<% } %>>MCA</option>
+                                                                        <option value="MBA(E.com)" <% if
+                                                                            (loggedUser.course==='MBA(E.com)' ) { %>
+                                                                            selected<% } %>
+                                                                                >MBA(E.com)</option>
+                                                                        <option value="Faculty" <% if
+                                                                            (loggedUser.course==='Faculty' ) { %>
+                                                                            selected<% } %>
+                                                                                >Faculty</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
 
 
-                                                    <div class="row mb-3">
-                                                        <label for="gender"
-                                                            class="col-md-4 col-lg-3 col-form-label">Gender</label>
-                                                        <div class="col-md-8 col-lg-9">
-                                                            <select name="gender" id="gender" class="form-select">
-                                                                <option value="Male" <% if (loggedUser.gender==='Male' )
-                                                                    { %>
-                                                                    selected<% } %>>Male</option>
-                                                                <option value="Female" <% if
-                                                                    (loggedUser.gender==='Female' ) { %>
-                                                                    selected<% } %>>Female</option>
-                                                                <option value="Other" <% if (loggedUser.gender==='Other'
-                                                                    ) { %>selected<% } %>
-                                                                        >Other</option>
+                                                            <div class="row mb-3">
+                                                                <label for="gender"
+                                                                    class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                                                                <div class="col-md-8 col-lg-9">
+                                                                    <select name="gender" id="gender"
+                                                                        class="form-select">
+                                                                        <option value="Male" <% if
+                                                                            (loggedUser.gender==='Male' ) { %>
+                                                                            selected<% } %>>Male</option>
+                                                                        <option value="Female" <% if
+                                                                            (loggedUser.gender==='Female' ) { %>
+                                                                            selected<% } %>>Female</option>
+                                                                        <option value="Other" <% if
+                                                                            (loggedUser.gender==='Other' ) { %>selected
+                                                                            <% } %>
+                                                                                >Other
+                                                                        </option>
 
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
 
-                                                    <div class="row mb-3">
-                                                        <label for="Phone"
-                                                            class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                                                        <div class="col-md-8 col-lg-9">
-                                                            <input name="phoneNumber" type="text" class="form-control"
-                                                                id="Phone" value="<%= loggedUser.phoneNumber %>">
-                                                        </div>
-                                                    </div>
+                                                            <div class="row mb-3">
+                                                                <label for="Phone"
+                                                                    class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                                                <div class="col-md-8 col-lg-9">
+                                                                    <input name="phoneNumber" type="text"
+                                                                        class="form-control" id="Phone"
+                                                                        value="<%= loggedUser.phoneNumber %>">
+                                                                </div>
+                                                            </div>
 
-                                                    <div class="row mb-3">
-                                                        <label for="Email"
-                                                            class="col-md-4 col-lg-3 col-form-label">Email</label>
-                                                        <div class="col-md-8 col-lg-9">
-                                                            <input name="email" type="email" class="form-control" id=""
-                                                                value="<%= loggedUser.email %>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                        <label for="DOB" class="col-md-4 col-lg-3 col-form-label">Date
-                                                            of
-                                                            Birth</label>
-                                                        <div class="col-md-8 col-lg-9">
-                                                            <input name="DOB" type="date" class="form-control" id=""
-                                                                value="<%= loggedUser.DOB %>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <button type="submit" class="btn btn-primary">Save</button>
-                                                    </div>
-                                                </form><!-- End Profile Edit Form -->
+                                                            <div class="row mb-3">
+                                                                <label for="Email"
+                                                                    class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                                                <div class="col-md-8 col-lg-9">
+                                                                    <input name="email" type="email"
+                                                                        class="form-control" id=""
+                                                                        value="<%= loggedUser.email %>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <label for="DOB"
+                                                                    class="col-md-4 col-lg-3 col-form-label">Date
+                                                                    of
+                                                                    Birth</label>
+                                                                <div class="col-md-8 col-lg-9">
+                                                                    <input name="DOB" type="date" class="form-control"
+                                                                        id="" value="<%= loggedUser.DOB %>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Save</button>
+                                                            </div>
+                                                        </form><!-- End Profile Edit Form -->
 
                                     </div>
 

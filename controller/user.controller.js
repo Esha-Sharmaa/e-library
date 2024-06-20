@@ -204,10 +204,12 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     }
 
     const { fullName, email, phoneNumber, course, gender, DOB } = matchedData(req);
-    const existedUser = await User.findOne({ $or: { email, phoneNumber } });
-
-    if (existedUser && existedUser._id.toString() !== req.user._id.toString()) {
-        console.log("entered here");
+    let existedUser;
+    if (email || phoneNumber) {
+        existedUser = await User.findOne({ $or: { email, phoneNumber } });
+    }
+    console.log(existedUser);
+    if (existedUser && existedUser?._id?.toString() !== req.user._id.toString()) {
         req.flash('error', 'User already exists');
         if (req.user.role === 'Admin')
             return res.status(402).redirect('/admin-profile');

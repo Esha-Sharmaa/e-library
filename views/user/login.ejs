@@ -106,37 +106,49 @@
             <!-- nav end -->
 
             <!-- form start -->
+
             <div class="row">
                 <div class="col-md-6 my-4 d-flex justify-content-center px-4">
                     <img class="img margin" src="images/login-Photoroom.png" alt="" />
                 </div>
+
                 <div class="col-md-6 my-2 d-flex justify-content-center">
+
                     <div class="card shadow-lg margin" style="width: 380px;">
-                        <div class="card-body">
-                            <h4 class="text-center">Student/Admin Login</h4>
-                            <br />
-                            <form action="/api/v1/users/login" method="post">
-                                <div class="floating-label">
-                                    <input type="text" name="enrollmentNumber" id="username" class="form-control"
-                                        placeholder=" " />
-                                    <label for="username">
-                                        <i class="bi bi-person-fill"></i> Enrollment/Admin ID
-                                    </label>
+                        <% if (errorMessages && errorMessages.length> 0) { %>
+                            <span class="error-message" role="alert">
+                                <% errorMessages.forEach(function(message) { %>
+                                    <p>
+                                        <%= message %>
+                                    </p>
+                                    <% }) %>
+                            </span>
+                            <% } %>
+                                <div class="card-body">
+                                    <h4 class="text-center">Student/Admin Login</h4>
+                                    <br />
+                                    <form action="/api/v1/users/login" method="post">
+                                        <div class="floating-label">
+                                            <input type="text" name="enrollmentNumber" id="username"
+                                                class="form-control" placeholder=" " />
+                                            <label for="username">
+                                                <i class="bi bi-person-fill"></i> Enrollment/Admin ID
+                                            </label>
+                                        </div>
+                                        <div class="floating-label mt-3">
+                                            <input type="password" name="password" id="password" class="form-control"
+                                                placeholder=" " />
+                                            <label for="password">
+                                                <i class="bi bi-key-fill"></i> Password
+                                            </label>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-door-open"></i> Login
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="floating-label mt-3">
-                                    <input type="password" name="password" id="password" class="form-control"
-                                        placeholder=" " />
-                                    <label for="password">
-                                        <i class="bi bi-key-fill"></i> Password
-                                    </label>
-                                </div>
-                                <div class="text-center mt-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="bi bi-door-open"></i> Login
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
 
