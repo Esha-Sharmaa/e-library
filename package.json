@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Devraj & Esha",
@@ -22,6 +22,7 @@
     "express-session": "^1.18.0",
     "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.4.1"
+    "mongoose": "^8.4.1",
+    "nodemon": "^3.1.3"
   }
 }
