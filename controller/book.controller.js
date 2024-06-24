@@ -39,6 +39,8 @@ const addBook = asyncHandler(async (req, res) => {
     const coverImageUrl = await uploadOnCloudinary(coverImageLocalPath, { resource_type: "auto" });
     const bookUrl = await uploadOnCloudinary(bookLocalPath, { resource_type: "auto" });
 
+    console.log(coverImageUrl, bookUrl);
+
     if (!coverImageUrl || !bookUrl) {
         return res.status(500).render('user/500', { req });
     }
