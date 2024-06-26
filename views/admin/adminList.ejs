@@ -62,10 +62,18 @@
                                                                     <%= admin.enrollmentNumber %>
                                                                 </td>
                                                                 <td>
-                                                                    <%= admin.phoneNumber %>
+                                                                    <% if(admin.phoneNumber){ %>
+                                                                        <%= admin.phoneNumber %>
+                                                                    <% } %>
+                                                                    
+                                                                    NILL
+                                                                          
                                                                 </td>
                                                                 <td>
-                                                                    <%= admin.email %>
+                                                                    <% if(admin.email){ %>
+                                                                        <%= admin.email %>
+                                                                            <% } %>
+                                                                        NILL
                                                                 </td>
                                                                 <td>
 

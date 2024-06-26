@@ -90,7 +90,7 @@
 
               </div><!-- End Customers Card -->
 
-              
+
               <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                   <div class="card-body">
@@ -120,10 +120,17 @@
                               <%= user.course %>
                             </td>
                             <td>
-                              <%= user.phoneNumber %>
+                              <% if(user.phoneNumber){ %>
+                                <%= user.phoneNumber %>
+                                  <% } %>
+
+                                    NILL
                             </td>
                             <td>
-                              <%= user.email %>
+                              <% if(user.email){ %>
+                                <%= user.email %>
+                                  <% } %>
+                                    NILL
                             </td>
                           </tr>
                           <% }); %>
@@ -135,7 +142,7 @@
                 </div>
               </div>
 
-            
+
               <div class="col-12">
                 <div class="card top-selling overflow-auto">
                   <div class="card-body pb-0">

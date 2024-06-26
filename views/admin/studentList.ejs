@@ -66,10 +66,17 @@
                                                                 <%= student.course %>
                                                             </td>
                                                             <td>
-                                                                <%= student.phoneNumber %>
+                                                                <% if(student.phoneNumber){ %>
+                                                                    <%= student.phoneNumber %>
+                                                                        <% } %>
+
+                                                                            NILL
                                                             </td>
                                                             <td>
-                                                                <%= student.email %>
+                                                                <% if(student.email){ %>
+                                                                    <%= student.email %>
+                                                                        <% } %>
+                                                                            NILL
                                                             </td>
                                                             <td>
                                                                 <a href="/api/v1/users/delete-user?id=<%= student._id%>"
