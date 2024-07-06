@@ -53,6 +53,7 @@ const addBook = asyncHandler(async (req, res) => {
         course
     });
     if (!createdBook) {
+        console.log(createdBook)
         return res.status(500).render('user/500', { req });
     }
     req.flash('success', "Book Added successfully");

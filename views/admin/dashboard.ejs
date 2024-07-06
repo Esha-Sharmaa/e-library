@@ -122,15 +122,16 @@
                             <td>
                               <% if(user.phoneNumber){ %>
                                 <%= user.phoneNumber %>
-                                  <% } %>
-
+                                  <% }else{ %>
                                     NILL
+                                    <% }%>
                             </td>
                             <td>
                               <% if(user.email){ %>
                                 <%= user.email %>
-                                  <% } %>
+                                  <% }else{ %>
                                     NILL
+                                    <% }%>
                             </td>
                           </tr>
                           <% }); %>
